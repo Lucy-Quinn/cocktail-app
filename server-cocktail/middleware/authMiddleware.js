@@ -1,41 +1,25 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+require('dotenv').config();
 
 //check user is authorized 
 const requireAuth = (req, res, next) => {
     const token = req.cookies.jwt;
     //check json web token exists and is verified
     if (token) {
-        jwt.verify(token, 'lucy secret', (err, decodedToken) => {
+        jwt.verify(token, process.env.SECRET_KEY, (err, decodedToken) => {
             if (err) {
-                res.redirect('/login');
+                // res.redirect('/login');
+                console.log('not logged in')
             } else {
                 next();
             }
         })
     } else {
-        res.redirect('/login');
+        // res.redirect('/login');
+        console.log('not logged in')
     }
 };
 
-// check current user
-const checkUser = (req, res, next) => {
-    const token = req.cookies.jwt; //grabbing the token
-    if (token) {
-        jwt.verify(token, 'lucy secret', async (err, decodedToken) => {
-            if (err) {
-                res.locals.user = null;
-                next();
-            } else {
-                let user = await User.findById(decodedToken.id);
-                res.locals.user = user; //locals property allows something to be available in the views
-                next();
-            }
-        })
-    } else {
-        res.locals.user = null;
-        next();
-    }
-}
 
-module.exports = { requireAuth, checkUser };
+module.exports = { requireAuth };

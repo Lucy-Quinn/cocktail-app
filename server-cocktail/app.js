@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const authRouter = require('./routes/authRoutes');
+const cocktailRouter = require('./routes/cocktailRoutes');
 require('dotenv').config();
-const { requireAuth, checkUser } = require('./middleware/authMiddleware');
 
 const app = express();
 
@@ -21,6 +21,5 @@ mongoose.connect(process.env.DBURI, { useNewUrlParser: true, useUnifiedTopology:
     .catch((err) => console.log(err));
 
 // ROUTER MIDDLEWARE
-app.get('*', checkUser); //* applies it to every single get request
-app.get('/cocktails', requireAuth);
+app.use('/api/cocktails', cocktailRouter);
 app.use('/auth', authRouter);
