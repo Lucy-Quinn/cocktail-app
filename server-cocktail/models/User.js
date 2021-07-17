@@ -21,8 +21,15 @@ const userSchema = new Schema({
         type: String,
         required: [true, 'Please enter a password'],
         minlength: [6, 'Minimum length is 6 characters'],
-    }
-});
+    },
+    myCocktails: [{ type: Schema.Types.ObjectId, ref: "Cocktails" }]
+},
+    {
+        timestamps: {
+            createdAt: 'create_at',
+            updatedAt: 'updated_at'
+        }
+    });
 
 //Hash password prior to doc being saved
 userSchema.pre('save', async function (next) {

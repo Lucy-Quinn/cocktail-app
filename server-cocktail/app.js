@@ -3,6 +3,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const authRouter = require('./routes/authRoutes');
 require('dotenv').config();
+const { requireAuth, checkUser } = require('./middleware/authMiddleware');
 
 const app = express();
 
@@ -12,8 +13,7 @@ app.use(express.json());
 app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, 'public')));
 
-const dbURI = 'mongodb+srv://lucy:3Azi0rkQ2uax51MZ@cocktails.tzba3.mongodb.net/cocktail-app';
-mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+mongoose.connect(process.env.DBURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
     .then((result) => {
         console.log('listening');
         app.listen(3000)
@@ -21,5 +21,6 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCr
     .catch((err) => console.log(err));
 
 // ROUTER MIDDLEWARE
-app.get('/cocktails');
+app.get('*', checkUser); //* applies it to every single get request
+app.get('/cocktails', requireAuth);
 app.use('/auth', authRouter);
