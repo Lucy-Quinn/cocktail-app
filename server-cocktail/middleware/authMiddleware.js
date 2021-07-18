@@ -9,15 +9,16 @@ const requireAuth = (req, res, next) => {
     if (token) {
         jwt.verify(token, process.env.SECRET_KEY, (err, decodedToken) => {
             if (err) {
-                // res.redirect('/login');
+                // res.redirect('/auth/login');
                 console.log('not logged in')
             } else {
+                console.log('logged in ')
                 next();
             }
         })
     } else {
-        // res.redirect('/login');
-        console.log('not logged in')
+        // res.redirect('/auth/login');
+        console.log('not logged in again')
     }
 };
 

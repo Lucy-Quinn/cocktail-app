@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
@@ -16,20 +16,16 @@ const CreateCocktailForm = () => {
     const handleCocktailFormSubmit = (event) => {
         event.preventDefault();
         const { name, ingredients } = values;
-        console.log(typeof name, typeof ingredients)
-        axios
-            .post(
-                `${process.env.REACT_APP_API_URL}/api/cocktails/create-cocktail`,
-                { name, ingredients },
-                { withCredentials: true }
-            )
-            .then(() => {
-                // history.push('/api/cocktails');
-                console.log('hell yes')
-
+        fetch(`${process.env.REACT_APP_API_URL}/api/cocktails`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                name, ingredients
             })
-            .catch((err) => console.log(err));
+        })
+            .catch(err => { if (err.request) { console.log('REQUEST', err.request) } if (err.response) { console.log('RESPONSE', err.response) } });
     };
+
     return (
         <CreateFormWrapper onSubmit={handleCocktailFormSubmit}>
             <input type="text" value={values.name} name="name" placeholder="Cocktail name" onChange={handleChange} />

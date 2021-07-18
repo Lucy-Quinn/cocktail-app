@@ -23,18 +23,10 @@ mongoose
         return pr;
     })
     .then(() => {
-        const updatedUser = users.map((user) => {
-            const salt = bcrypt.genSaltSync();
-            user.password = bcrypt.hashSync(user.password, salt);
-            return user
-        })
-        console.log(updatedUser.map(u => { return u.password + u.name }))
-        const pr = User.create(updatedUser);
-        return pr;
+        return User.create(users);
     })
     .then((createdUsers) => {
         console.log(`Created ${createdUsers.length} users`);
-        console.log('creatd', createdUsers.map(u => { return u.password + u.name }))
         const updatedCocktails = cocktails.map((cocktail, index) => {
             const currentUserId = createdUsers[index]._id;
             cocktail.cocktailCreator = currentUserId;

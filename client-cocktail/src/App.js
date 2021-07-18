@@ -6,7 +6,7 @@ import Navbar from './Layout/Navbar';
 import HomePage from './pages/HomePage';
 import DashboardPage from './pages/DashboardPage';
 import LoginPage from './pages/LoginPage';
-import SignupPage from './pages/SignupPage';
+import RegisterPage from './pages/RegisterPage';
 import CreateCocktailPage from './pages/CreateCocktailPage';
 import IndividualCocktailPage from './pages/IndividualCocktailPage';
 import GlobalStyle from './components/GlobalStyle';
@@ -18,12 +18,12 @@ function App() {
         <GlobalStyle />
         <Navbar />
         <Switch>
-          <Route exact path="/" component={HomePage} />
+          {/* <Route exact path="/" component={HomePage} /> */}
           <Route exact path="/login" component={LoginPage} />
-          <Route exact path="/signup" component={SignupPage} />
-          <Route exact path="/api/cocktails" component={DashboardPage} />
-          <Route exact path="/api/cocktails/create-cocktail" component={CreateCocktailPage} />
-          <Route exact path="/api/cocktails/cocktailId" component={IndividualCocktailPage} />
+          <Route exact path="/register" component={RegisterPage} />
+          <Route exact path="/cocktails" component={DashboardPage} />
+          <Route exact path="/cocktails/create-cocktail" component={CreateCocktailPage} />
+          {/* <Route exact path="/api/cocktails/cocktailId" component={IndividualCocktailPage} /> */}
         </Switch>
       </div>
     </Router>

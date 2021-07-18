@@ -5,16 +5,13 @@ const Cocktails = () => {
 
     const [cocktails, setCocktails] = useState('')
 
+    const getCocktailData = async () => {
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/cocktails`)
+        setCocktails(res.data)
+    };
+
     useEffect(() => {
-        axios
-            .get(
-                `${process.env.REACT_APP_API_URL}/api/cocktails`,
-                { withCredentials: true }
-            )
-            .then(({ data: cocktailData }) => {
-                setCocktails(cocktailData)
-            })
-            .catch((err) => console.log(err));
+        getCocktailData();
     }, []);
 
     return (

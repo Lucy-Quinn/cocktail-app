@@ -14,7 +14,6 @@ module.exports.cocktail_get = async (req, res) => {
 
 module.exports.cocktail_post = async (req, res) => {
     const { name, ingredients } = req.body;
-    console.log('name, ingredients', name, ingredients)
     const token = req.cookies.jwt;
     const currentUserId = await jwt.verify(token, process.env.SECRET_KEY, async (err, decodedToken) => { return decodedToken.id });
     try {
