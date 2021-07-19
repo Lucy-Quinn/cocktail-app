@@ -12,8 +12,9 @@ const CreateCocktailForm = () => {
     const handleCocktailFormSubmit = (event) => {
         event.preventDefault();
         const { name, ingredients } = values;
-        fetch(`${process.env.REACT_APP_API_URL}/api/cocktails`, {
+        fetch(`${process.env.REACT_APP_API_URL}/api/cocktails/create-cocktail`, {
             method: "POST",
+            withCredentials: true,
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 name, ingredients

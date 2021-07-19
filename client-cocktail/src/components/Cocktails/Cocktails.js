@@ -7,7 +7,7 @@ const Cocktails = () => {
     const [cocktails, setCocktails] = useState('')
 
     const getCocktailData = async () => {
-        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/cocktails`)
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/cocktails`, { withCredentials: true });
         setCocktails(res.data)
     };
 

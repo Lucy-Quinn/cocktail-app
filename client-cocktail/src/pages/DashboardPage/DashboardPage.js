@@ -10,7 +10,7 @@ const DashboardPage = () => {
         <DashboardWrapper>
             <h1>Your Cocktails</h1>
             <button>
-                <Link to="/api/cocktails/create-cocktail">Create Cocktail</Link>
+                <Link to="/cocktails/create-cocktail">Create Cocktail</Link>
             </button>
             <Cocktails />
         </DashboardWrapper>

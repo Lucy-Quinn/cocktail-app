@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from "react-router-dom";
 
 const EditCocktailForm = ({ cocktail, setIsEdit }) => {
 
     const [values, setValues] = useState({ name: '', ingredients: '' });
     const { name, ingredients, _id: cocktailId } = cocktail;
+    const history = useHistory();
 
     useEffect(() => {
-        setValues({ ...values, name, ingredients })
-    }, [cocktailId, name, ingredients])
-
+        setValues({ ...values, name, ingredients });
+    }, [])
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -20,13 +21,18 @@ const EditCocktailForm = ({ cocktail, setIsEdit }) => {
         const { name, ingredients } = values;
         fetch(`${process.env.REACT_APP_API_URL}/api/cocktails/${cocktailId}`, {
             method: "PUT",
-            headers: { "Content-Type": "application/json" },
+            withCredentials: true,
+            credentials: 'include',
+            headers: { "Content-Type": "application/json", "Accept": "application/json", 'Access-Control-Allow-Origin': '*' },
             body: JSON.stringify({
                 name, ingredients
             })
         })
             .then(() => {
-                setIsEdit(false);
+                setTimeout(() => {
+                    setIsEdit(false);
+                    history.push(`/cocktails/${cocktailId}`)
+                }, 300);
             })
             .catch(err => { if (err.request) { console.log('REQUEST', err.request) } if (err.response) { console.log('RESPONSE', err.response) } });
     };
