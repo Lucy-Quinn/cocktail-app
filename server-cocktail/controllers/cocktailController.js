@@ -28,6 +28,16 @@ module.exports.cocktail_post = async (req, res) => {
     }
 };
 
+module.exports.cocktai_get_cocktail = async (req, res) => {
+    const { cocktailId } = req.params;
+    try {
+        const foundCocktail = await Cocktail.findById(cocktailId)
+        res.status(200).json(foundCocktail)
+    } catch (err) {
+        res.status(400).json(err)
+    }
+};
+
 module.exports.cocktail_put = async (req, res) => {
     const { cocktailId } = req.params;
     const { name, ingredients } = req.body;

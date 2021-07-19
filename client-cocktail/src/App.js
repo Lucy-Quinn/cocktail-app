@@ -23,7 +23,7 @@ function App() {
           <Route exact path="/register" component={RegisterPage} />
           <Route exact path="/cocktails" component={DashboardPage} />
           <Route exact path="/cocktails/create-cocktail" component={CreateCocktailPage} />
-          {/* <Route exact path="/api/cocktails/cocktailId" component={IndividualCocktailPage} /> */}
+          <Route exact path="/cocktails/:cocktailId" component={IndividualCocktailPage} />
         </Switch>
       </div>
     </Router>

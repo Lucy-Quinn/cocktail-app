@@ -1,12 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import axios from "axios";
-import { useHistory } from "react-router-dom";
-
+import React, { useState } from 'react';
 import { CreateFormWrapper } from './CreateCocktailForm.styled';
 
 const CreateCocktailForm = () => {
     const [values, setValues] = useState({ name: '', ingredients: '' });
-    const history = useHistory();
 
     const handleChange = (event) => {
         const { name, value } = event.target;

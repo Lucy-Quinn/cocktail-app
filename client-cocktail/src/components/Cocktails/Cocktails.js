@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
+import { Link } from 'react-router-dom';
 
 const Cocktails = () => {
 
@@ -21,10 +22,10 @@ const Cocktails = () => {
                 :
                 cocktails.map(cocktail => {
                     return (
-                        <div key={cocktail._id}>
+                        <Link to={`/cocktails/${cocktail._id}`} key={cocktail._id}>
                             <h2>{cocktail.name}</h2>
                             <p>{cocktail.ingredients.map(ingredient => ingredient + ' ')}</p>
-                        </div>
+                        </Link>
                     )
                 })}
         </div>

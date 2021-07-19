@@ -38,7 +38,6 @@ const GlobalStyle = createGlobalStyle`
   p{
     font-size: 1.2rem;
   }
-
 `;
 
 export default GlobalStyle;
