@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { withAuth } from '../../context/AuthContext';
 
 const HomePage = () => {
     return (
@@ -8,4 +9,4 @@ const HomePage = () => {
     )
 };
 
-export default HomePage
+export default withAuth(HomePage);

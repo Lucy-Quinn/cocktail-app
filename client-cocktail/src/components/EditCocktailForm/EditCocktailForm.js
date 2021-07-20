@@ -44,6 +44,6 @@ const EditCocktailForm = ({ cocktail, setIsEdit }) => {
             <button type="submit">Save</button>
         </form>
     )
-}
+};
 
-export default EditCocktailForm
+export default EditCocktailForm;

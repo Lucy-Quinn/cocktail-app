@@ -1,6 +1,7 @@
 import React from 'react';
 
 import IndividualCocktail from '../../components/IndividualCocktail';
+import { withAuth } from '../../context/AuthContext';
 
 const IndividualCocktailPage = () => {
 
@@ -11,4 +12,4 @@ const IndividualCocktailPage = () => {
     )
 }
 
-export default IndividualCocktailPage
+export default withAuth(IndividualCocktailPage);

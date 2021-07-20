@@ -1,6 +1,7 @@
 import React from 'react';
 
 import CreateCocktailForm from '../../components/CreateCocktailForm';
+import { withAuth } from '../../context/AuthContext';
 
 const CreateCocktailPage = () => {
 
@@ -11,4 +12,4 @@ const CreateCocktailPage = () => {
     )
 }
 
-export default CreateCocktailPage;
+export default withAuth(CreateCocktailPage);

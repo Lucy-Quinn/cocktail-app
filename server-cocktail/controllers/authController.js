@@ -56,12 +56,23 @@ module.exports.login_post = async (req, res) => {
         const user = await User.login(email, password);
         const token = createToken(user._id);
         res.cookie('jwt', token, { httpOnly: false, maxAge: maxAge * 1000, sameSite: 'none', secure: true });
-        res.status(200).json({ user: user._id });
+        res.status(200).json(user);
     } catch (err) {
         const errors = handleErrors(err);
         res.status(400).json({ errors });
     }
 };
+
+module.exports.me_get = async (req, res) => {
+    const token = req.cookies.jwt;
+    if (token) {
+        const currentUserId = await jwt.verify(token, process.env.SECRET_KEY, async (err, decodedToken) => { return decodedToken.id });
+        const user = await User.findById(currentUserId);
+        res.status(201).json(user);;
+    } else {
+        res.status(401).json()
+    }
+}
 
 module.exports.logout_get = (req, res) => {
     res.cookie('jwt', '', { maxAge: 1 });

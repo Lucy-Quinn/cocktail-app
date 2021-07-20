@@ -1,6 +1,7 @@
 import React from 'react';
 
 import LoginForm from '../../components/LoginForm';
+import { withAuth } from '../../context/AuthContext';
 
 const LoginPage = () => {
 
@@ -12,4 +13,4 @@ const LoginPage = () => {
     )
 }
 
-export default LoginPage
+export default withAuth(LoginPage);

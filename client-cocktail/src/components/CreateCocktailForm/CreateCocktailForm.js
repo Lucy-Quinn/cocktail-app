@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { CreateFormWrapper } from './CreateCocktailForm.styled';
+import { useHistory } from "react-router-dom";
+
+import { withAuth } from '../../context/AuthContext';
 
 const CreateCocktailForm = () => {
     const [values, setValues] = useState({ name: '', ingredients: '' });
+    const history = useHistory();
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -15,11 +19,15 @@ const CreateCocktailForm = () => {
         fetch(`${process.env.REACT_APP_API_URL}/api/cocktails/create-cocktail`, {
             method: "POST",
             withCredentials: true,
-            headers: { "Content-Type": "application/json" },
+            credentials: 'include',
+            headers: { "Content-Type": "application/json", "Accept": "application/json", 'Access-Control-Allow-Origin': '*' },
             body: JSON.stringify({
                 name, ingredients
             })
         })
+            .then(() => {
+                history.push('/cocktails');
+            })
             .catch(err => { if (err.request) { console.log('REQUEST', err.request) } if (err.response) { console.log('RESPONSE', err.response) } });
     };
 
@@ -30,6 +38,6 @@ const CreateCocktailForm = () => {
             <button>Make your magic</button>
         </CreateFormWrapper>
     )
-}
+};
 
-export default CreateCocktailForm
+export default withAuth(CreateCocktailForm);

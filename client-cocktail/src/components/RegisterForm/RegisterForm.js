@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { withAuth } from '../../context/AuthContext';
 
-const RegisterForm = () => {
+const RegisterForm = ({ register }) => {
 
     const [values, setValues] = useState({ name: '', email: '', password: '' });
 
@@ -12,17 +13,7 @@ const RegisterForm = () => {
     const handleRegisterForm = (event) => {
         event.preventDefault();
         const { name, email, password } = values;
-        try {
-            fetch(`${process.env.REACT_APP_API_URL}/auth/register`, {
-                method: "POST",
-                withCredentials: true,
-                credentials: 'include',
-                headers: { "Content-Type": "application/json", "Accept": "application/json" },
-                body: JSON.stringify({
-                    name, email, password
-                })
-            })
-        } catch (err) { if (err.request) { console.log('REQUEST', err.request) } if (err.response) { console.log('RESPONSE', err.response) } }
+        register(name, email, password)
     }
 
     return (
@@ -33,6 +24,6 @@ const RegisterForm = () => {
             <button>Register</button>
         </form>
     )
-}
+};
 
-export default RegisterForm
+export default withAuth(RegisterForm);

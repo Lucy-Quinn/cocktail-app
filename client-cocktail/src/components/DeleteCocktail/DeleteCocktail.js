@@ -2,6 +2,8 @@ import React from 'react';
 import { useHistory } from "react-router-dom";
 
 const DeleteCocktail = ({ cocktail }) => {
+
+
     const history = useHistory()
     const { _id: cocktailId } = cocktail;
 
@@ -24,6 +26,6 @@ const DeleteCocktail = ({ cocktail }) => {
             <button onClick={handleDeleteCocktail}>Delete Cocktail</button>
         </div>
     )
-}
+};
 
-export default DeleteCocktail
+export default DeleteCocktail;

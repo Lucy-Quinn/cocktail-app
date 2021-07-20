@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
-export const LoginForm = () => {
+import { withAuth } from '../../context/AuthContext';
 
-    const [values, setValues] = useState({ email: '', password: '' });
+export const LoginForm = ({ login }) => {
+
+    const [values, setValues] = useState({ email: '', password: '', });
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -12,19 +14,8 @@ export const LoginForm = () => {
     const handleLoginFormSubmit = (event) => {
         event.preventDefault();
         const { email, password } = values;
-        try {
-            fetch(`${process.env.REACT_APP_API_URL}/auth/login`, {
-                method: "POST",
-                withCredentials: true,
-                credentials: 'include',
-                headers: { "Content-Type": "application/json", "Accept": "application/json", 'Access-Control-Allow-Origin': '*' },
-                body: JSON.stringify({
-                    email, password
-                })
-            })
-        } catch (err) { if (err.request) { console.log('REQUEST', err.request) } if (err.response) { console.log('RESPONSE', err.response) } }
+        login(email, password);
     };
-
 
     return (
         <form onSubmit={handleLoginFormSubmit}>
@@ -35,4 +26,4 @@ export const LoginForm = () => {
     )
 };
 
-export default LoginForm;
+export default withAuth(LoginForm);

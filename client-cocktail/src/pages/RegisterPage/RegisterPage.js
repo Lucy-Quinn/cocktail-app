@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { withAuth } from '../../context/AuthContext';
 import RegisterForm from '../../components/RegisterForm';
 
 const RegisterPage = () => {
@@ -12,4 +13,4 @@ const RegisterPage = () => {
     )
 }
 
-export default RegisterPage;
+export default withAuth(RegisterPage);

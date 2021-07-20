@@ -4,6 +4,7 @@ import axios from "axios";
 
 import DeleteCocktail from '../../components/DeleteCocktail';
 import EditCocktail from '../../components/EditCocktail';
+import { withAuth } from '../../context/AuthContext';
 
 const IndividualCocktail = () => {
 
@@ -34,6 +35,6 @@ const IndividualCocktail = () => {
             }
         </div>
     )
-}
+};
 
-export default IndividualCocktail
+export default withAuth(IndividualCocktail);

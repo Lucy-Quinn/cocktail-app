@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react';
+
 import EditCocktailForm from '../EditCocktailForm';
 
 const EditCocktail = ({ cocktail }) => {
@@ -22,6 +23,6 @@ const EditCocktail = ({ cocktail }) => {
             }
         </div>
     )
-}
+};
 
-export default EditCocktail
+export default EditCocktail;

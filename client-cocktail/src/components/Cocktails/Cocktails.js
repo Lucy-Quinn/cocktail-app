@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import { Link } from 'react-router-dom';
 
+import { withAuth } from '../../context/AuthContext';
+
 const Cocktails = () => {
 
     const [cocktails, setCocktails] = useState('')
@@ -13,6 +15,9 @@ const Cocktails = () => {
 
     useEffect(() => {
         getCocktailData();
+        return () => {
+            setCocktails();
+        }
     }, []);
 
     return (
@@ -30,6 +35,6 @@ const Cocktails = () => {
                 })}
         </div>
     )
-}
+};
 
-export default Cocktails
+export default withAuth(Cocktails);
