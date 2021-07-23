@@ -5,8 +5,9 @@ const { Consumer, Provider } = createContext();
 
 const AuthContextProvider = (props) => {
     const [authValues, setAuthValues] = useState({ isLoggedIn: false, isLoading: true, user: {} });
-    const { isLoggedIn, isLoading } = authValues;
+    const { isLoggedIn } = authValues;
     const history = useHistory();
+
 
     const getAuthRoute = () => {
         try {
@@ -30,9 +31,7 @@ const AuthContextProvider = (props) => {
         }
     };
 
-    useEffect(() => {
-        getAuthRoute();
-    }, [isLoggedIn]);
+
 
     const login = (email, password) => {
         try {
@@ -94,6 +93,10 @@ const AuthContextProvider = (props) => {
             if (err.request) { console.log('REQUEST', err.request) } if (err.response) { console.log('RESPONSE', err.response) }
         }
     };
+
+    useEffect(() => {
+        getAuthRoute();
+    }, [isLoggedIn]);
 
     return (
         <>

@@ -12,20 +12,23 @@ import IndividualCocktailPage from './pages/IndividualCocktailPage';
 import GlobalStyle from './components/GlobalStyle';
 import AnonRoute from "./components/AnonRoute";
 import PrivateRoute from "./components/PrivateRoute";
+import { AuthContextProvider } from './context/AuthContext';
 
 function App() {
   return (
     <Router>
-      <GlobalStyle />
-      <Navbar />
-      <Switch>
-        <AnonRoute exact path="/" component={HomePage} />
-        <AnonRoute exact path="/login" component={LoginPage} />
-        <AnonRoute exact path="/register" component={RegisterPage} />
-        <PrivateRoute exact path="/cocktails" component={DashboardPage} />
-        <PrivateRoute exact path="/cocktails/create-cocktail" component={CreateCocktailPage} />
-        <PrivateRoute exact path="/cocktails/:cocktailId" component={IndividualCocktailPage} />
-      </Switch>
+      <AuthContextProvider>
+        <GlobalStyle />
+        <Navbar />
+        <Switch>
+          <AnonRoute exact path="/" component={HomePage} />
+          <AnonRoute exact path="/login" component={LoginPage} />
+          <AnonRoute exact path="/register" component={RegisterPage} />
+          <PrivateRoute exact path="/cocktails" component={DashboardPage} />
+          <PrivateRoute exact path="/cocktails/create-cocktail" component={CreateCocktailPage} />
+          <PrivateRoute exact path="/cocktails/:cocktailId" component={IndividualCocktailPage} />
+        </Switch>
+      </AuthContextProvider>
     </Router>
   );
 }
