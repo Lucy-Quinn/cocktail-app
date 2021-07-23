@@ -11,7 +11,6 @@ const requireAuth = (req, res, next) => {
             if (err) {
                 console.log('not logged in')
             } else {
-                console.log('logged in ')
                 next();
             }
         })

@@ -1,10 +1,12 @@
 import React from 'react';
 import { NavLink as Link } from 'react-router-dom';
 
-import Logout from '../../Logout/Logout';
+import Logout from './Logout/Logout';
 import { withAuth } from '../../../context/AuthContext';
 
-const NavbarLinks = ({ isLoggedIn }) => {
+const NavbarLinks = ({ isLoggedIn, user }) => {
+
+    const { _id: profileId } = user;
 
     return (
         <ul>
@@ -12,6 +14,8 @@ const NavbarLinks = ({ isLoggedIn }) => {
                 <>
                     <li><Link to="/cocktails">Your cocktails</Link></li>
                     <li><Link to="/cocktails/create-cocktail">Create a cocktail</Link></li>
+                    <li><Link to={`/profile/${profileId && profileId}`}>Your profile</Link></li>
+
                     <Logout />
                 </>
                 :

@@ -13,7 +13,7 @@ const IndividualCocktail = () => {
 
     const getCocktailData = async () => {
         const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/cocktails/${cocktailId}`, { withCredentials: true });
-        setCocktail(res.data)
+        setCocktail(res.data);
     };
 
     useEffect(() => {

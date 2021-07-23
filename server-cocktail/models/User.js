@@ -22,7 +22,7 @@ const userSchema = new Schema({
         required: [true, 'Please enter a password'],
         minlength: [6, 'Minimum length is 6 characters'],
     },
-    myCocktails: [{ type: Schema.Types.ObjectId, ref: "Cocktails" }]
+    myCocktails: [{ type: Schema.Types.ObjectId, ref: "cocktail" }]
 },
     {
         timestamps: {

@@ -49,21 +49,3 @@ mongoose
         console.log(`Updated ${updatedUsers.length} users`);
     })
     .catch((err) => console.log(err));
-
-
-
-
-
-    // .then(() => {
-    //     const updatedUser = users.map((user) => {
-    //         const salt = bcrypt.genSaltSync();
-    //         user.password = bcrypt.hashSync(user.password, salt);
-    //         return user
-    //     })
-    //     const pr = User.create(updatedUser);
-    //     return pr;
-    // })
-    // .then((createdUsers) => {
-    //     console.log(createdUsers)
-    // })
-

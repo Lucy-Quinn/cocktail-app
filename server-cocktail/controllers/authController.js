@@ -67,8 +67,10 @@ module.exports.me_get = async (req, res) => {
     const token = req.cookies.jwt;
     if (token) {
         const currentUserId = await jwt.verify(token, process.env.SECRET_KEY, async (err, decodedToken) => { return decodedToken.id });
-        const user = await User.findById(currentUserId);
-        res.status(201).json(user);;
+        const user = await User.findById(currentUserId)
+
+        res.status(200).json(user);
+
     } else {
         res.status(401).json()
     }

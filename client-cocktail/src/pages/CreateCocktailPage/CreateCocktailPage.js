@@ -6,9 +6,10 @@ import { withAuth } from '../../context/AuthContext';
 const CreateCocktailPage = () => {
 
     return (
-        <div>
+        <>
+            <h1>Create a cocktail</h1>
             <CreateCocktailForm />
-        </div>
+        </>
     )
 };
 

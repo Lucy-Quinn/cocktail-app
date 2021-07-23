@@ -3,7 +3,6 @@ import { useHistory } from "react-router-dom";
 
 const DeleteCocktail = ({ cocktail }) => {
 
-
     const history = useHistory()
     const { _id: cocktailId } = cocktail;
 

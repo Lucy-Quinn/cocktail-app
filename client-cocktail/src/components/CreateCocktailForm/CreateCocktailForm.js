@@ -5,7 +5,9 @@ import { useHistory } from "react-router-dom";
 import { withAuth } from '../../context/AuthContext';
 
 const CreateCocktailForm = () => {
+
     const [values, setValues] = useState({ name: '', ingredients: '' });
+    const { name, ingredients } = values;
     const history = useHistory();
 
     const handleChange = (event) => {
@@ -15,7 +17,6 @@ const CreateCocktailForm = () => {
 
     const handleCocktailFormSubmit = (event) => {
         event.preventDefault();
-        const { name, ingredients } = values;
         fetch(`${process.env.REACT_APP_API_URL}/api/cocktails/create-cocktail`, {
             method: "POST",
             withCredentials: true,
@@ -33,8 +34,8 @@ const CreateCocktailForm = () => {
 
     return (
         <CreateFormWrapper onSubmit={handleCocktailFormSubmit}>
-            <input type="text" value={values.name} name="name" placeholder="Cocktail name" onChange={handleChange} />
-            <input type="text" value={values.ingredients} name="ingredients" placeholder="Cocktail ingredients" onChange={handleChange} />
+            <input type="text" value={name} name="name" placeholder="Cocktail name" onChange={handleChange} />
+            <input type="text" value={ingredients} name="ingredients" placeholder="Cocktail ingredients" onChange={handleChange} />
             <button>Make your magic</button>
         </CreateFormWrapper>
     )

@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from "react-router-dom";
 
 const EditCocktailForm = ({ cocktail, setIsEdit, getCocktailData }) => {
 
     const [values, setValues] = useState({ name: '', ingredients: '' });
     const { name, ingredients, _id: cocktailId } = cocktail;
-    const history = useHistory();
 
     useEffect(() => {
         setValues({ ...values, name, ingredients });
@@ -32,7 +30,6 @@ const EditCocktailForm = ({ cocktail, setIsEdit, getCocktailData }) => {
                 getCocktailData();
                 setTimeout(() => {
                     setIsEdit(false);
-                    history.push(`/cocktails/${cocktailId}`)
                 }, 300);
             })
             .catch(err => { if (err.request) { console.log('REQUEST', err.request) } if (err.response) { console.log('RESPONSE', err.response) } });

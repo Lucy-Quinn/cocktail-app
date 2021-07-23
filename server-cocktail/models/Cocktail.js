@@ -9,7 +9,7 @@ const cocktailSchema = new Schema({
         maxlength: 150
     },
     ingredients: [String],
-    cocktailCreator: { type: Schema.Types.ObjectId, ref: "User" }
+    cocktailCreator: { type: Schema.Types.ObjectId, ref: "user" }
 },
     {
         timestamps: {

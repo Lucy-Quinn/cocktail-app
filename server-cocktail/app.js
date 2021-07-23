@@ -3,6 +3,8 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const authRouter = require('./routes/authRoutes');
 const cocktailRouter = require('./routes/cocktailRoutes');
+const profileRouter = require('./routes/profileRoutes');
+
 require('dotenv').config();
 const cors = require('cors');
 
@@ -31,4 +33,5 @@ app.use(cors({ origin: true, credentials: true }));
 
 // ROUTER MIDDLEWARE
 app.use('/api/cocktails', cocktailRouter);
+app.use('/api/profile', profileRouter);
 app.use('/auth', authRouter);

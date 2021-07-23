@@ -9,6 +9,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import CreateCocktailPage from './pages/CreateCocktailPage';
 import IndividualCocktailPage from './pages/IndividualCocktailPage';
+import ProfilePage from './pages/ProfilePage';
 import GlobalStyle from './components/GlobalStyle';
 import AnonRoute from "./components/AnonRoute";
 import PrivateRoute from "./components/PrivateRoute";
@@ -27,6 +28,7 @@ function App() {
           <PrivateRoute exact path="/cocktails" component={DashboardPage} />
           <PrivateRoute exact path="/cocktails/create-cocktail" component={CreateCocktailPage} />
           <PrivateRoute exact path="/cocktails/:cocktailId" component={IndividualCocktailPage} />
+          <PrivateRoute exact path="/profile/:profileId" component={ProfilePage} />
         </Switch>
       </AuthContextProvider>
     </Router>

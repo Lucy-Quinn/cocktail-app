@@ -5,7 +5,7 @@ require('dotenv').config();
 
 module.exports.cocktail_get = async (req, res) => {
     try {
-        const foundCocktails = await Cocktail.find().sort({ name: 1 })
+        const foundCocktails = await Cocktail.find().sort({ name: 1 });
         res.status(200).json(foundCocktails)
     } catch (err) {
         res.status(400).json(err)
@@ -28,7 +28,7 @@ module.exports.cocktail_post = async (req, res) => {
     }
 };
 
-module.exports.cocktai_get_cocktail = async (req, res) => {
+module.exports.cocktail_get_cocktail = async (req, res) => {
     const { cocktailId } = req.params;
     try {
         const foundCocktail = await Cocktail.findById(cocktailId)

@@ -8,6 +8,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Roboto', sans-serif;
     height: 100%;
     box-sizing: border-box;
+    text-align: center;
   }
 
   html{

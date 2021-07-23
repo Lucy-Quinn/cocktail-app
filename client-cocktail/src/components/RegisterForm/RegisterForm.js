@@ -13,7 +13,7 @@ const RegisterForm = ({ register }) => {
     const handleRegisterForm = (event) => {
         event.preventDefault();
         const { name, email, password } = values;
-        register(name, email, password)
+        register(name, email, password);
     }
 
     return (

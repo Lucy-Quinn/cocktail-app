@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink as Link } from 'react-router-dom';
-import { withAuth } from '../../context/AuthContext';
+import { withAuth } from '../../../../context/AuthContext';
 
 const Logout = ({ logout }) => {
 

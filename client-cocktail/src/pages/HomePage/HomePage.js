@@ -3,9 +3,9 @@ import { withAuth } from '../../context/AuthContext';
 
 const HomePage = () => {
     return (
-        <div>
+        <>
             <h1>Homepage</h1>
-        </div>
+        </>
     )
 };
 
