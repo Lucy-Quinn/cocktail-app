@@ -11,6 +11,6 @@ const LoginPage = () => {
             <LoginForm />
         </div>
     )
-}
+};
 
 export default withAuth(LoginPage);

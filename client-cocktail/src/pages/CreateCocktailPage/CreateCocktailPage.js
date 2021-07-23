@@ -10,6 +10,6 @@ const CreateCocktailPage = () => {
             <CreateCocktailForm />
         </div>
     )
-}
+};
 
 export default withAuth(CreateCocktailPage);

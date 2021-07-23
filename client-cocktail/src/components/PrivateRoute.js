@@ -2,7 +2,8 @@ import React from 'react'
 import { Route, Redirect } from 'react-router-dom';
 import { withAuth } from '../context/AuthContext';
 
-const PrivateRoute = ({ component: Component, isLoggedIn, ...rest }) => {
+const PrivateRoute = ({ component: Component, isLoggedIn, isLoading, ...rest }) => {
+    if (isLoading) return 'Loading';
     return (
         <Route
             {...rest}

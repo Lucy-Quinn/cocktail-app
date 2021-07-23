@@ -4,8 +4,8 @@ import { useHistory } from "react-router-dom";
 const { Consumer, Provider } = createContext();
 
 const AuthContextProvider = (props) => {
-    const [authValues, setAuthValues] = useState({ isLoggedIn: false, user: {} });
-    const { isLoggedIn } = authValues;
+    const [authValues, setAuthValues] = useState({ isLoggedIn: false, isLoading: true, user: {} });
+    const { isLoggedIn, isLoading } = authValues;
     const history = useHistory();
 
     const getAuthRoute = () => {
@@ -19,16 +19,20 @@ const AuthContextProvider = (props) => {
                 .then((response) => {
                     return response.json()
                         .then((user) => {
-                            setAuthValues({ ...authValues, isLoggedIn: true, user })
+                            setAuthValues({ ...authValues, isLoggedIn: true, isLoading: false, user })
                         })
                 })
                 .catch((err) => {
-                    setAuthValues({ ...authValues, isLoggedIn: false, user: {} })
+                    setAuthValues({ ...authValues, isLoggedIn: false, isLoading: false, user: {} })
                 })
         } catch (err) {
             if (err.request) { console.log('REQUEST', err.request) } if (err.response) { console.log('RESPONSE', err.response) }
         }
-    }
+    };
+
+    useEffect(() => {
+        getAuthRoute();
+    }, [isLoggedIn]);
 
     const login = (email, password) => {
         try {
@@ -89,16 +93,14 @@ const AuthContextProvider = (props) => {
         } catch (err) {
             if (err.request) { console.log('REQUEST', err.request) } if (err.response) { console.log('RESPONSE', err.response) }
         }
-    }
-
-    useEffect(() => {
-        getAuthRoute();
-    }, [isLoggedIn]);
+    };
 
     return (
-        <Provider value={{ authValues, logout, login, register }}>
-            {props.children}
-        </Provider>
+        <>
+            <Provider value={{ authValues, logout, login, register }}>
+                {props.children}
+            </Provider>
+        </>
     );
 };
 
@@ -107,7 +109,7 @@ const withAuth = (WrappedComponent) => {
         return (
             <Consumer>
                 {(value) => {
-                    const { isLoggedIn, user } = value.authValues;
+                    const { isLoggedIn, user, isLoading } = value.authValues;
                     const { login, logout, register } = value;
                     return (<WrappedComponent
                         {...props}
@@ -116,6 +118,7 @@ const withAuth = (WrappedComponent) => {
                         logout={logout}
                         login={login}
                         register={register}
+                        isLoading={isLoading}
                     />)
                 }}
             </Consumer>

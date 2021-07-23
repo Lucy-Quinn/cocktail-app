@@ -16,6 +16,6 @@ const DashboardPage = () => {
             <Cocktails />
         </DashboardWrapper>
     )
-}
+};
 
 export default withAuth(DashboardPage);

@@ -27,7 +27,7 @@ const IndividualCocktail = () => {
         <div>
             {cocktail ?
                 <div>
-                    <EditCocktail cocktail={cocktail} />
+                    <EditCocktail cocktail={cocktail} getCocktailData={getCocktailData} />
                     <DeleteCocktail cocktail={cocktail} />
                 </div>
                 :

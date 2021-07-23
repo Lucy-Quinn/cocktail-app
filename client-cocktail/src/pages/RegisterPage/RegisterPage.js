@@ -11,6 +11,6 @@ const RegisterPage = () => {
             <RegisterForm />
         </div>
     )
-}
+};
 
 export default withAuth(RegisterPage);

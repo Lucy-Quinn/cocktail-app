@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import EditCocktailForm from '../EditCocktailForm';
 
-const EditCocktail = ({ cocktail }) => {
+const EditCocktail = ({ cocktail, getCocktailData }) => {
 
     const [isEdit, setIsEdit] = useState(false);
 
@@ -13,7 +13,7 @@ const EditCocktail = ({ cocktail }) => {
     return (
         <div>
             {isEdit ?
-                <EditCocktailForm cocktail={cocktail} setIsEdit={setIsEdit} />
+                <EditCocktailForm cocktail={cocktail} setIsEdit={setIsEdit} getCocktailData={getCocktailData} />
                 :
                 <div>
                     <h1>{cocktail.name}</h1>

@@ -10,6 +10,6 @@ const IndividualCocktailPage = () => {
             <IndividualCocktail />
         </div>
     )
-}
+};
 
 export default withAuth(IndividualCocktailPage);

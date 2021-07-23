@@ -11,7 +11,7 @@ const Navbar = ({ user, isLoggedIn }) => {
             {isLoggedIn ?
                 <>
                     <h1><Link to="/cocktails">Cocktail Mania</Link></h1>
-                    <h2>Welcome {user.name}</h2>
+                    <h2>Welcome {user && user.name}</h2>
                 </>
                 :
                 <>
