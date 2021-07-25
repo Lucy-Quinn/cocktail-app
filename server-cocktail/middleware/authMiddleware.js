@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const User = require('../models/User');
 require('dotenv').config();
 
 //check user is authorized 
@@ -9,15 +8,14 @@ const requireAuth = (req, res, next) => {
     if (token) {
         jwt.verify(token, process.env.SECRET_KEY, (err, decodedToken) => {
             if (err) {
-                console.log('not logged in')
+                res.status(401).json({ errorMessage: "Unauthorized" })
             } else {
                 next();
             }
         })
     } else {
-        console.log('not logged in again')
+        res.status(401).json({ errorMessage: "Unauthorized" })
     }
 };
-
 
 module.exports = { requireAuth };

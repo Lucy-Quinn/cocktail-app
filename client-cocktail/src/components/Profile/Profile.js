@@ -18,20 +18,22 @@ const Profile = () => {
 
     const getUserData = async () => {
         const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/profile/${profileId}`, { withCredentials: true });
-        setUserData(res.data)
+        setUserData(res.data);
     };
 
     useEffect(() => {
         getUserData();
         return () => {
             getUserData();
+            setUserData();
         }
     }, []);
+
 
     return (
         <>
             {isEdit ?
-                <EditProfileForm getUserData={getUserData} setIsEdit={setIsEdit} />
+                <EditProfileForm getUserData={getUserData} setIsEdit={setIsEdit} userData={userData} />
                 :
                 <>
                     <h1> {name}</h1>

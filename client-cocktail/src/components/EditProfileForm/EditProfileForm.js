@@ -5,16 +5,11 @@ import { withAuth } from '../../context/AuthContext';
 import DeleteProfile from '../DeleteProfile/DeleteProfile';
 import { EditProfileFormWrapper } from '../EditProfileForm/EditProfileForm.styled';
 
-const EditProfileForm = ({ user, getUserData, setIsEdit }) => {
+const EditProfileForm = ({ getUserData, setIsEdit, userData }) => {
 
     const [values, setValues] = useState({ name: '', email: '' });
     const { name, email } = values;
     const { profileId } = useParams();
-
-    useEffect(() => {
-        const { name, email } = user;
-        setValues({ ...values, name, email });
-    }, [])
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -40,6 +35,11 @@ const EditProfileForm = ({ user, getUserData, setIsEdit }) => {
             })
             .catch(err => { if (err.request) { console.log('REQUEST', err.request) } if (err.response) { console.log('RESPONSE', err.response) } });
     };
+
+    useEffect(() => {
+        const { name, email } = userData;
+        setValues({ ...values, name, email });
+    }, []);
 
     return (
         <EditProfileFormWrapper onSubmit={handleProfileEditSubmit}>
