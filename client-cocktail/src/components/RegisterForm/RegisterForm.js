@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { withAuth } from '../../context/AuthContext';
 
-const RegisterForm = ({ register }) => {
+const RegisterForm = ({ register, errors }) => {
 
     const [values, setValues] = useState({ name: '', email: '', password: '' });
 
@@ -14,12 +14,12 @@ const RegisterForm = ({ register }) => {
         event.preventDefault();
         const { name, email, password } = values;
         register(name, email, password);
-    }
+    };
 
     return (
         <form onSubmit={handleRegisterForm}>
             <input type="text" value={values.name} name="name" placeholder="Enter your name" onChange={handleChange} />
-            <input type="text" value={values.email} name="email" placeholder="Enter your email" onChange={handleChange} />
+            <input type="email" value={values.email} name="email" placeholder="Enter your email" onChange={handleChange} required />
             <input type="password" value={values.password} name="password" placeholder="Enter your password" onChange={handleChange} />
             <button>Register</button>
         </form>

@@ -1,26 +1,24 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { isEmail } = require('validator');
 const bcrypt = require('bcrypt');
 
 const userSchema = new Schema({
     name: {
         type: String,
-        required: [true, 'Please enter your name'],
+        required: true,
         minlength: 3,
         maxlength: 55,
         lowercase: true,
     },
     email: {
         type: String,
-        required: [true, 'Please enter an email address'],
+        required: true,
         unique: true,
-        validate: [isEmail, 'Please enter a valid email']
     },
     password: {
         type: String,
-        required: [true, 'Please enter a password'],
-        minlength: [6, 'Minimum length is 6 characters'],
+        required: true,
+        minlength: 6,
     },
     myCocktails: [{ type: Schema.Types.ObjectId, ref: "cocktail" }]
 },

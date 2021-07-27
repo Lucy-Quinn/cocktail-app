@@ -5,7 +5,7 @@ const { Consumer, Provider } = createContext();
 
 const AuthContextProvider = (props) => {
 
-    const [authValues, setAuthValues] = useState({ isLoggedIn: false, isLoading: true, user: {} });
+    const [authValues, setAuthValues] = useState({ isLoggedIn: false, isLoading: true, user: {}, errors: {} });
     const { isLoggedIn } = authValues;
     const history = useHistory();
 
@@ -44,13 +44,22 @@ const AuthContextProvider = (props) => {
             })
                 .then((response) => {
                     return response.json()
-                        .then((user) => {
-                            setAuthValues({ ...authValues, isLoggedIn: true, user });
-                            history.push('/');
+                        .then((data) => {
+                            if (!data.success) {
+                                setAuthValues({ ...authValues, isLoggedIn: false, errors: data.data.errors })
+                            } else {
+                                setAuthValues({ ...authValues, isLoggedIn: true, user: data.user });
+                                history.push('/');
+                            }
                         })
                 })
-        } catch (err) {
-            if (err.request) { console.log('REQUEST', err.request) } if (err.response) { console.log('RESPONSE', err.response) }
+        } catch (error) {
+            if (error.request) {
+                console.log('REQUEST', error.request)
+            }
+            if (error.response) {
+                console.log('RESPONSE', error.response)
+            }
         }
     };
 
@@ -112,7 +121,7 @@ const withAuth = (WrappedComponent) => {
         return (
             <Consumer>
                 {(value) => {
-                    const { isLoggedIn, user, isLoading } = value.authValues;
+                    const { isLoggedIn, user, isLoading, errors } = value.authValues;
                     const { login, logout, register } = value;
                     return (<WrappedComponent
                         {...props}
@@ -122,6 +131,7 @@ const withAuth = (WrappedComponent) => {
                         login={login}
                         register={register}
                         isLoading={isLoading}
+                        errors={errors}
                     />)
                 }}
             </Consumer>
