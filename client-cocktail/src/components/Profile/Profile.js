@@ -1,39 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import React, { useState } from 'react';
 
-import { withAuth } from '../../context/AuthContext';
 import EditProfileForm from '../EditProfileForm/EditProfileForm';
 
-const Profile = () => {
+const Profile = ({ user, getAuthRoute, logout }) => {
 
     const [isEdit, setIsEdit] = useState(false);
-    const [userData, setUserData] = useState('');
-    const { name, email, myCocktails } = userData;
-    const { profileId } = useParams();
+    const { name, email, myCocktails } = user;
 
     const handleEditProfileButton = () => {
         setIsEdit(!isEdit);
     };
 
-    const getUserData = async () => {
-        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/profile/${profileId}`, { withCredentials: true });
-        setUserData(res.data);
-    };
-
-    useEffect(() => {
-        getUserData();
-        return () => {
-            getUserData();
-            setUserData();
-        }
-    }, []);
-
-
     return (
         <>
             {isEdit ?
-                <EditProfileForm getUserData={getUserData} setIsEdit={setIsEdit} userData={userData} />
+                <EditProfileForm
+                    getUserData={getAuthRoute}
+                    setIsEdit={setIsEdit}
+                    userData={user}
+                    logout={logout} />
                 :
                 <>
                     <h1> {name}</h1>
@@ -42,9 +27,8 @@ const Profile = () => {
                     <button onClick={handleEditProfileButton}>Edit</button>
                 </>
             }
-
         </>
-    )
-}
+    );
+};
 
-export default withAuth(Profile);
+export default Profile;

@@ -2,11 +2,10 @@ import React from 'react';
 import { NavLink as Link } from 'react-router-dom';
 
 import Logout from './Logout/Logout';
-import { withAuth } from '../../../context/AuthContext';
 
-const NavbarLinks = ({ isLoggedIn, user }) => {
+const NavbarLinks = ({ isLoggedIn, user, logout }) => {
 
-    const { _id: profileId } = user;
+    const { _id: profileId } = user || {};
 
     return (
         <ul>
@@ -16,7 +15,7 @@ const NavbarLinks = ({ isLoggedIn, user }) => {
                     <li><Link to="/cocktails/create-cocktail">Create a cocktail</Link></li>
                     <li><Link to={`/profile/${profileId && profileId}`}>Your profile</Link></li>
 
-                    <Logout />
+                    <Logout logout={logout} />
                 </>
                 :
                 <>
@@ -28,4 +27,4 @@ const NavbarLinks = ({ isLoggedIn, user }) => {
     )
 }
 
-export default withAuth(NavbarLinks);
+export default NavbarLinks;

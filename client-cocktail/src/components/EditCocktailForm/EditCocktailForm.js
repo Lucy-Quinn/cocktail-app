@@ -41,7 +41,7 @@ const EditCocktailForm = ({ cocktail, setIsEdit, getCocktailData }) => {
             <input type="text" value={values.ingredients} name="ingredients" onChange={handleChange} />
             <button type="submit">Save</button>
         </form>
-    )
+    );
 };
 
 export default EditCocktailForm;

@@ -2,16 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import { Link } from 'react-router-dom';
 
-import { withAuth } from '../../context/AuthContext';
-
 const Cocktails = () => {
 
     const [cocktails, setCocktails] = useState('')
-
-    const getCocktailData = async () => {
-        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/cocktails`, { withCredentials: true });
-        setCocktails(res.data)
-    };
 
     useEffect(() => {
         getCocktailData();
@@ -19,6 +12,11 @@ const Cocktails = () => {
             setCocktails();
         }
     }, []);
+
+    const getCocktailData = async () => {
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/cocktails`, { withCredentials: true });
+        setCocktails(res.data)
+    };
 
     return (
         <div>
@@ -37,4 +35,4 @@ const Cocktails = () => {
     )
 };
 
-export default withAuth(Cocktails);
+export default Cocktails;

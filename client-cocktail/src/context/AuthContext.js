@@ -109,7 +109,7 @@ const AuthContextProvider = (props) => {
 
     return (
         <>
-            <Provider value={{ authValues, logout, login, register }}>
+            <Provider value={{ authValues, logout, login, register, getAuthRoute }}>
                 {props.children}
             </Provider>
         </>
@@ -122,7 +122,7 @@ const withAuth = (WrappedComponent) => {
             <Consumer>
                 {(value) => {
                     const { isLoggedIn, user, isLoading, errors } = value.authValues;
-                    const { login, logout, register } = value;
+                    const { login, logout, register, getAuthRoute } = value;
                     return (<WrappedComponent
                         {...props}
                         isLoggedIn={isLoggedIn}
@@ -132,6 +132,7 @@ const withAuth = (WrappedComponent) => {
                         register={register}
                         isLoading={isLoading}
                         errors={errors}
+                        getAuthRoute={getAuthRoute}
                     />)
                 }}
             </Consumer>

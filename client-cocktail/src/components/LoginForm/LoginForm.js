@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 
-import { withAuth } from '../../context/AuthContext';
-
 export const LoginForm = ({ login }) => {
 
     const [values, setValues] = useState({ email: '', password: '', });
@@ -23,7 +21,7 @@ export const LoginForm = ({ login }) => {
             <input type="password" value={values.password} name="password" placeholder="Enter your password" onChange={handleChange} />
             <button>Login</button>
         </form>
-    )
+    );
 };
 
-export default withAuth(LoginForm);
+export default LoginForm;

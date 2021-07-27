@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { withAuth } from '../../context/AuthContext';
 
 const RegisterForm = ({ register, errors }) => {
 
@@ -26,4 +25,4 @@ const RegisterForm = ({ register, errors }) => {
     )
 };
 
-export default withAuth(RegisterForm);
+export default RegisterForm;

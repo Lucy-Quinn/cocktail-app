@@ -24,7 +24,7 @@ const DeleteCocktail = ({ cocktail }) => {
         <div>
             <button onClick={handleDeleteCocktail}>Delete Cocktail</button>
         </div>
-    )
+    );
 };
 
 export default DeleteCocktail;

@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { withAuth } from '../../context/AuthContext';
 import DeleteProfile from '../DeleteProfile/DeleteProfile';
 import { EditProfileFormWrapper } from '../EditProfileForm/EditProfileForm.styled';
 
-const EditProfileForm = ({ getUserData, setIsEdit, userData }) => {
+const EditProfileForm = ({ getUserData, setIsEdit, userData, logout }) => {
 
     const [values, setValues] = useState({ name: '', email: '' });
-    const { name, email } = values;
     const { profileId } = useParams();
+    const { name, email } = values;
+
+    useEffect(() => {
+        const { name, email } = userData;
+        setValues({ ...values, name, email });
+        return (() => {
+            setValues();
+        })
+    }, []);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -36,19 +43,14 @@ const EditProfileForm = ({ getUserData, setIsEdit, userData }) => {
             .catch(err => { if (err.request) { console.log('REQUEST', err.request) } if (err.response) { console.log('RESPONSE', err.response) } });
     };
 
-    useEffect(() => {
-        const { name, email } = userData;
-        setValues({ ...values, name, email });
-    }, []);
-
     return (
         <EditProfileFormWrapper onSubmit={handleProfileEditSubmit}>
             <input type="text" name="name" value={name} onChange={handleChange} />
             <input type="email" name="email" value={email} onChange={handleChange} />
             <button>Save</button>
-            <DeleteProfile />
+            <DeleteProfile logout={logout} />
         </EditProfileFormWrapper>
-    )
+    );
 };
 
-export default withAuth(EditProfileForm);
+export default EditProfileForm;

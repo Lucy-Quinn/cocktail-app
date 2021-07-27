@@ -4,17 +4,11 @@ import axios from "axios";
 
 import DeleteCocktail from '../../components/DeleteCocktail';
 import EditCocktail from '../../components/EditCocktail';
-import { withAuth } from '../../context/AuthContext';
 
 const IndividualCocktail = () => {
 
     const [cocktail, setCocktail] = useState('');
     const { cocktailId } = useParams();
-
-    const getCocktailData = async () => {
-        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/cocktails/${cocktailId}`, { withCredentials: true });
-        setCocktail(res.data);
-    };
 
     useEffect(() => {
         getCocktailData();
@@ -22,6 +16,11 @@ const IndividualCocktail = () => {
             setCocktail();
         }
     }, []);
+
+    const getCocktailData = async () => {
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/cocktails/${cocktailId}`, { withCredentials: true });
+        setCocktail(res.data);
+    };
 
     return (
         <div>
@@ -37,4 +36,4 @@ const IndividualCocktail = () => {
     )
 };
 
-export default withAuth(IndividualCocktail);
+export default IndividualCocktail;

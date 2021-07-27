@@ -1,12 +1,13 @@
 import React from 'react';
 
 import Profile from '../../components/Profile/Profile';
+import { withAuth } from '../../context/AuthContext';
 
-const ProfilePage = () => {
+const ProfilePage = ({ user, getAuthRoute, logout }) => {
 
     return (
-        <Profile />
-    )
-}
+        <Profile user={user} getAuthRoute={getAuthRoute} logout={logout} />
+    );
+};
 
-export default ProfilePage;
+export default withAuth(ProfilePage);

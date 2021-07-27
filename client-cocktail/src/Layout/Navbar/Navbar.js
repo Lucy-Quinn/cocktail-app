@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import NavbarLinks from './NavbarLinks';
 import { withAuth } from '../../context/AuthContext';
 
-const Navbar = ({ user, isLoggedIn }) => {
+const Navbar = ({ user, isLoggedIn, logout }) => {
     return (
         <NavbarWrapper>
             {isLoggedIn ?
@@ -18,7 +18,7 @@ const Navbar = ({ user, isLoggedIn }) => {
                     <h1><Link to="/">Cocktail Mania</Link></h1>
                 </>
             }
-            <NavbarLinks />
+            <NavbarLinks user={user} isLoggedIn={isLoggedIn} logout={logout} />
         </NavbarWrapper>
     )
 }

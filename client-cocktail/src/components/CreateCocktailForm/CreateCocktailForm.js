@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { CreateFormWrapper } from './CreateCocktailForm.styled';
 import { useHistory } from "react-router-dom";
 
-import { withAuth } from '../../context/AuthContext';
-
 const CreateCocktailForm = () => {
 
     const [values, setValues] = useState({ name: '', ingredients: '' });
@@ -41,4 +39,4 @@ const CreateCocktailForm = () => {
     )
 };
 
-export default withAuth(CreateCocktailForm);
+export default CreateCocktailForm;
