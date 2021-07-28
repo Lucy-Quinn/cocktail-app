@@ -13,7 +13,7 @@ module.exports.register_post = async (req, res) => {
         const user = await User.create({ name, email, password });
         const token = createToken(user._id);
         res.cookie('jwt', token, { httpOnly: false, maxAge: maxAge * 1000, sameSite: 'none', secure: true });
-        res.status(201).json({ user: user._id, token });
+        res.status(201).json({ user });
     } catch (error) {
         res.status(400).json({ error });
     }
@@ -27,6 +27,7 @@ module.exports.login_post = async (req, res) => {
         res.cookie('jwt', token, { httpOnly: false, maxAge: maxAge * 1000, sameSite: 'none', secure: true });
         res.status(200).json(user);
     } catch (error) {
+        console.log(error)
         res.status(400).json({ error });
     }
 };

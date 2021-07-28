@@ -24,7 +24,6 @@ const AuthContextProvider = (props) => {
                                 ...authValues,
                                 isLoggedIn: true,
                                 isLoading: false,
-
                                 user
                             })
                         })
@@ -73,7 +72,7 @@ const AuthContextProvider = (props) => {
                                 setAuthValues({
                                     ...authValues,
                                     isLoggedIn: true,
-                                    user: data.user
+                                    user: data
                                 });
                                 history.push('/');
                             }
@@ -103,13 +102,21 @@ const AuthContextProvider = (props) => {
             })
                 .then((response) => {
                     return response.json()
-                        .then((user) => {
-                            setAuthValues({
-                                ...authValues,
-                                isLoggedIn: true,
-                                user
-                            });
-                            history.push('/');
+                        .then((data) => {
+                            if (data.success === false) {
+                                setAuthValues({
+                                    ...authValues,
+                                    isLoggedIn: false,
+                                    errors: data.data.errors
+                                })
+                            } else {
+                                setAuthValues({
+                                    ...authValues,
+                                    isLoggedIn: true,
+                                    user: data
+                                });
+                                history.push('/');
+                            }
                         })
                 })
         } catch (error) {
