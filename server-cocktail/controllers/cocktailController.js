@@ -7,15 +7,15 @@ module.exports.cocktail_get = async (req, res) => {
     try {
         const foundCocktails = await Cocktail.find().sort({ name: 1 });
         res.status(200).json(foundCocktails)
-    } catch (err) {
-        res.status(400).json(err)
+    } catch (error) {
+        res.status(400).json(error)
     }
 };
 
 module.exports.cocktail_post = async (req, res) => {
     const { name, ingredients } = req.body;
     const token = req.cookies.jwt;
-    const currentUserId = await jwt.verify(token, process.env.SECRET_KEY, async (err, decodedToken) => { return decodedToken.id });
+    const currentUserId = await jwt.verify(token, process.env.SECRET_KEY, async (error, decodedToken) => { return decodedToken.id });
     try {
         const createdCocktail = await Cocktail.create({ name, ingredients, cocktailCreator: currentUserId });
         const user = await User.findByIdAndUpdate(
@@ -23,8 +23,8 @@ module.exports.cocktail_post = async (req, res) => {
             { $push: { myCocktails: createdCocktail } }, { new: true }
         )
         res.status(201).send(`Cocktail ${createdCocktail} was created successfully.`);;
-    } catch (err) {
-        res.status(400).json(err)
+    } catch (error) {
+        res.status(400).json(error)
     }
 };
 
@@ -33,8 +33,8 @@ module.exports.cocktail_get_cocktail = async (req, res) => {
     try {
         const foundCocktail = await Cocktail.findById(cocktailId)
         res.status(200).json(foundCocktail)
-    } catch (err) {
-        res.status(400).json(err)
+    } catch (error) {
+        res.status(400).json(error)
     }
 };
 
@@ -48,15 +48,15 @@ module.exports.cocktail_put = async (req, res) => {
             { new: true }
         )
         res.status(200).json(updatedCocktail)
-    } catch (err) {
-        res.status(400).json(err)
+    } catch (error) {
+        res.status(400).json(error)
     }
 };
 
 module.exports.cocktail_delete = async (req, res) => {
     const { cocktailId } = req.params;
     const token = req.cookies.jwt;
-    const currentUserId = await jwt.verify(token, process.env.SECRET_KEY, async (err, decodedToken) => { return decodedToken.id });
+    const currentUserId = await jwt.verify(token, process.env.SECRET_KEY, async (error, decodedToken) => { return decodedToken.id });
     try {
         await User.findByIdAndUpdate(
             currentUserId,
@@ -65,7 +65,7 @@ module.exports.cocktail_delete = async (req, res) => {
         );
         const deletedCocktail = await Cocktail.findByIdAndDelete(cocktailId)
         res.status(200).send(`Post ${deletedCocktail} was removed successfully.`);
-    } catch (err) {
-        res.status(400).json(err)
+    } catch (error) {
+        res.status(400).json(error)
     }
 };

@@ -17,7 +17,7 @@ const DeleteProfile = ({ logout }) => {
             .then(() => {
                 logout();
             })
-            .catch((err) => console.log(err));
+            .catch((error) => console.log(error));
     };
 
     return (

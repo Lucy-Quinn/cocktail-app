@@ -9,7 +9,7 @@ const IndividualCocktailPage = () => {
         <>
             <IndividualCocktail />
         </>
-    )
+    );
 };
 
 export default withAuth(IndividualCocktailPage);

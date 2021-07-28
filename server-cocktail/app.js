@@ -15,7 +15,7 @@ mongoose.connect(process.env.DBURI, { useNewUrlParser: true, useUnifiedTopology:
         console.log('listening');
         app.listen(5000)
     })
-    .catch((err) => console.log(err));
+    .catch((error) => console.log(error));
 
 
 app.use(function (req, res, next) {

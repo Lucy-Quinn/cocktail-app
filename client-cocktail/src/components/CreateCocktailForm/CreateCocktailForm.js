@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { CreateFormWrapper } from './CreateCocktailForm.styled';
 import { useHistory } from "react-router-dom";
 
-const CreateCocktailForm = () => {
+const CreateCocktailForm = ({ getAuthRoute }) => {
 
     const [values, setValues] = useState({ name: '', ingredients: '' });
     const { name, ingredients } = values;
@@ -21,13 +21,22 @@ const CreateCocktailForm = () => {
             credentials: 'include',
             headers: { "Content-Type": "application/json", "Accept": "application/json", 'Access-Control-Allow-Origin': '*' },
             body: JSON.stringify({
-                name, ingredients
+                name,
+                ingredients
             })
         })
             .then(() => {
+                getAuthRoute();
                 history.push('/cocktails');
             })
-            .catch(err => { if (err.request) { console.log('REQUEST', err.request) } if (err.response) { console.log('RESPONSE', err.response) } });
+            .catch(error => {
+                if (error.request) {
+                    console.log('REQUEST', error.request)
+                }
+                if (error.response) {
+                    console.log('RESPONSE', error.response)
+                }
+            });
     };
 
     return (
@@ -36,7 +45,7 @@ const CreateCocktailForm = () => {
             <input type="text" value={ingredients} name="ingredients" placeholder="Cocktail ingredients" onChange={handleChange} />
             <button>Make your magic</button>
         </CreateFormWrapper>
-    )
+    );
 };
 
 export default CreateCocktailForm;

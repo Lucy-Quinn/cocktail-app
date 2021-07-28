@@ -12,7 +12,7 @@ const AnonRoute = ({ component: ComponentToShow, isLoggedIn, isLoading, ...rest 
                 :
                 <ComponentToShow {...props} />}
         />
-    )
+    );
 };
 
 export default withAuth(AnonRoute);

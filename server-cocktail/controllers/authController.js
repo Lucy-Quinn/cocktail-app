@@ -34,7 +34,7 @@ module.exports.login_post = async (req, res) => {
 module.exports.me_get = async (req, res) => {
     const token = req.cookies.jwt;
     if (token) {
-        const currentUserId = await jwt.verify(token, process.env.SECRET_KEY, async (err, decodedToken) => { return decodedToken.id });
+        const currentUserId = await jwt.verify(token, process.env.SECRET_KEY, async (error, decodedToken) => { return decodedToken.id });
         const user = await User.findById(currentUserId)
 
         res.status(200).json(user);

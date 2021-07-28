@@ -33,7 +33,7 @@ const IndividualCocktail = () => {
                 'Loading cocktail'
             }
         </div>
-    )
+    );
 };
 
 export default IndividualCocktail;

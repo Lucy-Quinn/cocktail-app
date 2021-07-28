@@ -11,8 +11,8 @@ import CreateCocktailPage from './pages/CreateCocktailPage';
 import IndividualCocktailPage from './pages/IndividualCocktailPage';
 import ProfilePage from './pages/ProfilePage';
 import GlobalStyle from './components/GlobalStyle';
-import AnonRoute from "./components/AnonRoute";
-import PrivateRoute from "./components/PrivateRoute";
+import AnonRoute from "./routes/AnonRoute";
+import PrivateRoute from "./routes/PrivateRoute";
 import { AuthContextProvider } from './context/AuthContext';
 
 function App() {
@@ -33,6 +33,6 @@ function App() {
       </AuthContextProvider>
     </Router>
   );
-}
+};
 
 export default App;

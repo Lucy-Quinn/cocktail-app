@@ -20,7 +20,7 @@ const Navbar = ({ user, isLoggedIn, logout }) => {
             }
             <NavbarLinks user={user} isLoggedIn={isLoggedIn} logout={logout} />
         </NavbarWrapper>
-    )
-}
+    );
+};
 
 export default withAuth(Navbar);

@@ -6,8 +6,8 @@ const { Consumer, Provider } = createContext();
 const AuthContextProvider = (props) => {
 
     const [authValues, setAuthValues] = useState({ isLoggedIn: false, isLoading: true, user: {}, errors: {} });
-    const { isLoggedIn } = authValues;
     const history = useHistory();
+    const { isLoggedIn } = authValues;
 
     const getAuthRoute = () => {
         try {
@@ -20,14 +20,30 @@ const AuthContextProvider = (props) => {
                 .then((response) => {
                     return response.json()
                         .then((user) => {
-                            setAuthValues({ ...authValues, isLoggedIn: true, isLoading: false, user })
+                            setAuthValues({
+                                ...authValues,
+                                isLoggedIn: true,
+                                isLoading: false,
+
+                                user
+                            })
                         })
                 })
-                .catch((err) => {
-                    setAuthValues({ ...authValues, isLoggedIn: false, isLoading: false, user: {} })
+                .catch((error) => {
+                    setAuthValues({
+                        ...authValues,
+                        isLoggedIn: false,
+                        isLoading: false,
+                        user: {}
+                    })
                 })
-        } catch (err) {
-            if (err.request) { console.log('REQUEST', err.request) } if (err.response) { console.log('RESPONSE', err.response) }
+        } catch (error) {
+            if (error.request) {
+                console.log('REQUEST', error.request)
+            }
+            if (error.response) {
+                console.log('RESPONSE', error.response)
+            }
         }
     };
 
@@ -39,16 +55,26 @@ const AuthContextProvider = (props) => {
                 credentials: 'include',
                 headers: { "Content-Type": "application/json", "Accept": "application/json" },
                 body: JSON.stringify({
-                    name, email, password
+                    name,
+                    email,
+                    password
                 })
             })
                 .then((response) => {
                     return response.json()
                         .then((data) => {
-                            if (!data.success) {
-                                setAuthValues({ ...authValues, isLoggedIn: false, errors: data.data.errors })
+                            if (data.success === false) {
+                                setAuthValues({
+                                    ...authValues,
+                                    isLoggedIn: false,
+                                    errors: data.data.errors
+                                })
                             } else {
-                                setAuthValues({ ...authValues, isLoggedIn: true, user: data.user });
+                                setAuthValues({
+                                    ...authValues,
+                                    isLoggedIn: true,
+                                    user: data.user
+                                });
                                 history.push('/');
                             }
                         })
@@ -71,18 +97,28 @@ const AuthContextProvider = (props) => {
                 credentials: 'include',
                 headers: { "Content-Type": "application/json", "Accept": "application/json", 'Access-Control-Allow-Origin': '*' },
                 body: JSON.stringify({
-                    email, password
+                    email,
+                    password
                 })
             })
                 .then((response) => {
                     return response.json()
                         .then((user) => {
-                            setAuthValues({ ...authValues, isLoggedIn: true, user });
+                            setAuthValues({
+                                ...authValues,
+                                isLoggedIn: true,
+                                user
+                            });
                             history.push('/');
                         })
                 })
-        } catch (err) {
-            if (err.request) { console.log('REQUEST', err.request) } if (err.response) { console.log('RESPONSE', err.response) }
+        } catch (error) {
+            if (error.request) {
+                console.log('REQUEST', error.request)
+            }
+            if (error.response) {
+                console.log('RESPONSE', error.response)
+            }
         }
     };
 
@@ -95,11 +131,20 @@ const AuthContextProvider = (props) => {
                 headers: { "Content-Type": "application/json", "Accept": "application/json", 'Access-Control-Allow-Origin': '*' }
             })
                 .then(() => {
-                    setAuthValues({ ...authValues, isLoggedIn: false, user: {} });
+                    setAuthValues({
+                        ...authValues,
+                        isLoggedIn: false,
+                        user: {}
+                    });
                     history.push('/');
                 })
-        } catch (err) {
-            if (err.request) { console.log('REQUEST', err.request) } if (err.response) { console.log('RESPONSE', err.response) }
+        } catch (error) {
+            if (error.request) {
+                console.log('REQUEST', error.request)
+            }
+            if (error.response) {
+                console.log('RESPONSE', error.response)
+            }
         }
     };
 
@@ -109,7 +154,13 @@ const AuthContextProvider = (props) => {
 
     return (
         <>
-            <Provider value={{ authValues, logout, login, register, getAuthRoute }}>
+            <Provider value={{
+                authValues,
+                logout,
+                login,
+                register,
+                getAuthRoute
+            }}>
                 {props.children}
             </Provider>
         </>
@@ -121,8 +172,18 @@ const withAuth = (WrappedComponent) => {
         return (
             <Consumer>
                 {(value) => {
-                    const { isLoggedIn, user, isLoading, errors } = value.authValues;
-                    const { login, logout, register, getAuthRoute } = value;
+                    const {
+                        isLoggedIn,
+                        user,
+                        isLoading,
+                        errors
+                    } = value.authValues;
+                    const {
+                        login,
+                        logout,
+                        register,
+                        getAuthRoute
+                    } = value;
                     return (<WrappedComponent
                         {...props}
                         isLoggedIn={isLoggedIn}

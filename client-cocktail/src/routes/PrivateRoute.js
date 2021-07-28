@@ -9,7 +9,7 @@ const PrivateRoute = ({ component: Component, isLoggedIn, isLoading, ...rest }) 
             {...rest}
             render={(props) => isLoggedIn ? <Component {...props} /> : <Redirect to="/login" />}
         />
-    )
+    );
 };
 
 export default withAuth(PrivateRoute);

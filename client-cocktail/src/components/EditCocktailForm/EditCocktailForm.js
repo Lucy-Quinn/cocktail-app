@@ -23,7 +23,8 @@ const EditCocktailForm = ({ cocktail, setIsEdit, getCocktailData }) => {
             credentials: 'include',
             headers: { "Content-Type": "application/json", "Accept": "application/json", 'Access-Control-Allow-Origin': '*' },
             body: JSON.stringify({
-                name, ingredients
+                name,
+                ingredients
             })
         })
             .then(() => {
@@ -32,7 +33,14 @@ const EditCocktailForm = ({ cocktail, setIsEdit, getCocktailData }) => {
                     setIsEdit(false);
                 }, 300);
             })
-            .catch(err => { if (err.request) { console.log('REQUEST', err.request) } if (err.response) { console.log('RESPONSE', err.response) } });
+            .catch(error => {
+                if (error.request) {
+                    console.log('REQUEST', error.request)
+                }
+                if (error.response) {
+                    console.log('RESPONSE', error.response)
+                }
+            });
     };
 
     return (

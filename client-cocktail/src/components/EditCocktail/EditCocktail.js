@@ -22,7 +22,7 @@ const EditCocktail = ({ cocktail, getCocktailData }) => {
                 </div>
             }
         </div>
-    )
+    );
 };
 
 export default EditCocktail;

@@ -17,7 +17,15 @@ const DeleteCocktail = ({ cocktail }) => {
                 .then(() => {
                     history.push('/cocktails');
                 })
-        } catch (err) { if (err.request) { console.log('REQUEST', err.request) } if (err.response) { console.log('RESPONSE', err.response) } }
+        }
+        catch (error) {
+            if (error.request) {
+                console.log('REQUEST', error.request)
+            }
+            if (error.response) {
+                console.log('RESPONSE', error.response)
+            }
+        }
     };
 
     return (

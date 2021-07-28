@@ -31,7 +31,8 @@ const EditProfileForm = ({ getUserData, setIsEdit, userData, logout }) => {
             credentials: 'include',
             headers: { "Content-Type": "application/json", "Accept": "application/json", 'Access-Control-Allow-Origin': '*' },
             body: JSON.stringify({
-                name, email
+                name,
+                email
             })
         })
             .then(() => {
@@ -40,7 +41,14 @@ const EditProfileForm = ({ getUserData, setIsEdit, userData, logout }) => {
                     setIsEdit(false);
                 }, 300);
             })
-            .catch(err => { if (err.request) { console.log('REQUEST', err.request) } if (err.response) { console.log('RESPONSE', err.response) } });
+            .catch(error => {
+                if (error.request) {
+                    console.log('REQUEST', error.request)
+                }
+                if (error.response) {
+                    console.log('RESPONSE', error.response)
+                }
+            });
     };
 
     return (

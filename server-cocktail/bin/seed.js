@@ -48,4 +48,4 @@ mongoose
     .then((updatedUsers) => {
         console.log(`Updated ${updatedUsers.length} users`);
     })
-    .catch((err) => console.log(err));
+    .catch((error) => console.log(error));

@@ -3,8 +3,9 @@ import { DashboardWrapper } from './Dashboard.styled';
 import { Link } from 'react-router-dom';
 
 import Cocktails from '../../components/Cocktails';
+import { withAuth } from '../../context/AuthContext';
 
-const DashboardPage = () => {
+const DashboardPage = ({ user }) => {
 
     return (
         <DashboardWrapper>
@@ -12,9 +13,9 @@ const DashboardPage = () => {
             <button>
                 <Link to="/cocktails/create-cocktail">Create Cocktail</Link>
             </button>
-            <Cocktails />
+            <Cocktails user={user} />
         </DashboardWrapper>
-    )
+    );
 };
 
-export default DashboardPage;
+export default withAuth(DashboardPage);

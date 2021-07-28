@@ -10,7 +10,7 @@ const RegisterPage = ({ register, errors }) => {
             <h1>register</h1>
             <RegisterForm register={register} errors={errors} />
         </>
-    )
+    );
 };
 
 export default withAuth(RegisterPage);

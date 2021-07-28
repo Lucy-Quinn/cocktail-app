@@ -10,7 +10,7 @@ const LoginPage = ({ login }) => {
             <h1>Login</h1>
             <LoginForm login={login} />
         </>
-    )
+    );
 };
 
 export default withAuth(LoginPage);
