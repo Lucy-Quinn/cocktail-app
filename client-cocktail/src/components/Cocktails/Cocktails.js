@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Cocktails = ({ user }) => {
 
     const [cocktails, setCocktails] = useState('')
-    const { _id: userId } = user;
+    const { _id: userId } = user || {};
 
     useEffect(() => {
         getCocktailData();

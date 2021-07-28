@@ -15,6 +15,7 @@ const EditProfileForm = ({ getUserData, setIsEdit, userData, logout }) => {
         setValues({ ...values, name, email });
         return (() => {
             setValues();
+            getUserData();
         })
     }, []);
 
