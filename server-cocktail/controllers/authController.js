@@ -1,6 +1,6 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
-
+const bcrypt = require('bcrypt');
 //create jwt token 
 const maxAge = 3 * 24 * 60 * 60; // 3 days in seconds
 const createToken = (id) => {
@@ -10,7 +10,9 @@ const createToken = (id) => {
 module.exports.register_post = async (req, res) => {
     const { name, email, password } = req.body;
     try {
-        const user = await User.create({ name, email, password });
+        const salt = await bcrypt.genSalt();
+        let hashedPassword = await bcrypt.hash(password, salt);
+        const user = await User.create({ name, email, password: hashedPassword });
         const token = createToken(user._id);
         res.cookie('jwt', token, { httpOnly: false, maxAge: maxAge * 1000, sameSite: 'none', secure: true });
         res.status(201).json({ user });
@@ -21,13 +23,14 @@ module.exports.register_post = async (req, res) => {
 
 module.exports.login_post = async (req, res) => {
     const { email, password } = req.body;
+    console.log('email, password ', email, password )
     try {
         const user = await User.login(email, password);
         const token = createToken(user._id);
         res.cookie('jwt', token, { httpOnly: false, maxAge: maxAge * 1000, sameSite: 'none', secure: true });
         res.status(200).json(user);
     } catch (error) {
-        console.log(error)
+        console.log('ERRRRROR', error)
         res.status(400).json({ error });
     }
 };

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export const LoginForm = ({ login }) => {
+export const LoginForm = ({ login, errors }) => {
 
     const [values, setValues] = useState({ email: '', password: '', });
 
@@ -15,6 +15,7 @@ export const LoginForm = ({ login }) => {
         login(email, password);
     };
 
+    console.log(errors);
     return (
         <form onSubmit={handleLoginFormSubmit}>
             <input type="text" value={values.email} name="email" placeholder="Enter your email" onChange={handleChange} />

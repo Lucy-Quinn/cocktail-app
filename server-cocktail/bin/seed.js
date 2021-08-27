@@ -23,7 +23,14 @@ mongoose
         return pr;
     })
     .then(() => {
-        return User.create(users);
+        const updatedUser = users.map((user) => {
+            const salt = bcrypt.genSaltSync(10);
+            user.password = bcrypt.hashSync(user.password, salt);
+            return user
+        })
+        // creating users with already hashed passwords
+        const pr = User.create(updatedUser);
+        return pr;
     })
     .then((createdUsers) => {
         console.log(`Created ${createdUsers.length} users`);

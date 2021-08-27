@@ -15,6 +15,7 @@ const RegisterForm = ({ register, errors }) => {
         register(name, email, password);
     };
 
+    console.log(errors);
     return (
         <form onSubmit={handleRegisterForm}>
             <input type="text" value={values.name} name="name" placeholder="Enter your name" onChange={handleChange} />
