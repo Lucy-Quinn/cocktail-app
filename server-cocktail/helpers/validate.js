@@ -1,88 +1,59 @@
-const Validator = require('validatorjs');
-const User = require('../models/User');
-const bcrypt = require('bcrypt');
+const Validator = require("validatorjs");
+const User = require("../models/User");
+const _ = require("lodash");
 
-Validator.registerAsync('exist', function (value, attribute, req, passes) {
+Validator.registerAsync("exist", function (value, attribute, req, passes) {
+  if (value === null) {
+    passes(false, "Email required");
+  }
 
-    if (!attribute) throw new Error('Specify Requirements');
+  if (!attribute) throw new Error("Specify Requirements");
 
-    let msg = `${req} has already been taken `
+  let msg = `This ${req} address has already been taken`;
 
-    User.find({ email: value })
-        .then(founduser => {
-            if (founduser.length) {
-                passes(false, msg);
-                return;
-            }
-            passes();
-        });
+  User.find({ email: value }).then((founduser) => {
+    if (founduser.length) {
+      passes(false, msg);
+      return;
+    }
+    passes();
+  });
 });
 
-Validator.registerAsync('incorrectEmail', function async(value, attribute, req, passes) {
+Validator.registerAsync("incorrectEmail",function async(value, attribute, req, passes) {
     if (value === null) {
-        passes(false, 'Email required');
-    };
+      passes(false, "Email required");
+    }
 
-    if (!attribute) throw new Error('Specify Requirements');
+    if (!attribute) throw new Error("Specify Requirements");
 
-    let msg = `${req} does not exist`;
-    // validation.fails();
-
-    User.find({ email: value })
-        .then(foundUser => {
-            if (!foundUser) {
-                passes(false, msg);
-                return;
-            }
-            passes();
-        })
-        .catch(err => {
-            console.log('ERR', err);
-        })
-});
-
-
-Validator.registerAsync('incorrectPassword', function async(value, attribute, req, passes) {
-    console.log('value, attribute, req', value, attribute, req)
-    if (value === null){
-        passes(false, 'Password required');
-    };
-
-    if (!attribute) throw new Error('Specify Requirements');
-
-    let msg = `${req} is incorrect`;
-    // // validation.fails();
+    let msg = `Incorrect email or password`;
 
     User.find({ email: value })
-        .then(foundUser => {
-            // console.log(foundUser)
-            // const auth = bcrypt.compare(value, foundUser.password)
-            // return auth
-            //     .then(isUser => {
-            //         console.log('isUser', isUser)
-            //         if (isUser) {
-            //             passes(false, msg);
-            //             return;
-            //         }
-            //         passes();
-            //     })
-        })
-        .catch(err => {
-            console.log('ERR', err);
-        })
-});
+      .then((foundUser) => {
+        if (_.isEmpty(foundUser)) {
+          passes(false, msg);
+          return;
+        }
+        passes();
+      })
+      .catch((err) => {
+        console.log("ERR", err);
+      });
+  }
+);
 
 const validator = (body, rules, customMessages, callback, passes, fails) => {
-    const validation = new Validator(body, rules, customMessages);
-    validation.passes(() => callback(null, true));
-    validation.fails(() => callback(validation.errors, false));
-    function passes() {
-        console.log('Validation passed!');
-    }
-    function fails() {
-        console.log('Validation failed!');
-    }
-    validation.checkAsync(passes, fails);
+  const validation = new Validator(body, rules, customMessages);
+  validation.passes(() => callback(null, true));
+  validation.fails(() => callback(validation.errors.errors, false));
+  function passes() {
+    console.log("Validation passed!");
+  }
+  function fails() {
+    console.log("Validation failed!");
+  }
+  validation.checkAsync(passes, fails);
 };
 
 module.exports = validator;

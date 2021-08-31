@@ -20,17 +20,21 @@ module.exports.register_post = async (req, res) => {
         res.status(400).json({ error });
     }
 };
-
 module.exports.login_post = async (req, res) => {
     const { email, password } = req.body;
-    console.log('email, password ', email, password )
     try {
-        const user = await User.login(email, password);
-        const token = createToken(user._id);
-        res.cookie('jwt', token, { httpOnly: false, maxAge: maxAge * 1000, sameSite: 'none', secure: true });
-        res.status(200).json(user);
+        const user = await User.findOne({ email });
+        if (user) {
+            const auth = await bcrypt.compare(password, user.password)
+            if (!auth) {
+                res.status(412).json({ success: false, data: { 'password': ['Incorrect username or password.'] } });
+            } else {
+                const token = createToken(user._id);
+                res.cookie('jwt', token, { httpOnly: false, maxAge: maxAge * 1000, sameSite: 'none', secure: true });
+                res.status(200).json(user);
+            }
+        }
     } catch (error) {
-        console.log('ERRRRROR', error)
         res.status(400).json({ error });
     }
 };
@@ -40,9 +44,7 @@ module.exports.me_get = async (req, res) => {
     if (token) {
         const currentUserId = await jwt.verify(token, process.env.SECRET_KEY, async (error, decodedToken) => { return decodedToken.id });
         const user = await User.findById(currentUserId)
-
         res.status(200).json(user);
-
     } else {
         res.status(401).json()
     }

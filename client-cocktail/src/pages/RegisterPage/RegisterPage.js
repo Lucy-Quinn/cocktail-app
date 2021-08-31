@@ -8,7 +8,7 @@ const RegisterPage = ({ register, errors }) => {
     return (
         <>
             <h1>register</h1>
-            <RegisterForm register={register} errors={errors} />
+            <RegisterForm register={register} errors={errors}/>
         </>
     );
 };

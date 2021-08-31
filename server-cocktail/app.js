@@ -11,7 +11,7 @@ const cors = require('cors');
 const app = express();
 
 mongoose.connect(process.env.DBURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
-    .then((result) => {
+    .then(() => {
         console.log('listening');
         app.listen(5000)
     })

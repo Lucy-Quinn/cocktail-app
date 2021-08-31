@@ -28,7 +28,7 @@ const AuthContextProvider = (props) => {
                             })
                         })
                 })
-                .catch((error) => {
+                .catch(() => {
                     setAuthValues({
                         ...authValues,
                         isLoggedIn: false,
@@ -66,7 +66,7 @@ const AuthContextProvider = (props) => {
                                 setAuthValues({
                                     ...authValues,
                                     isLoggedIn: false,
-                                    errors: data.data.errors
+                                    errors: data.data
                                 })
                             } else {
                                 setAuthValues({
@@ -107,7 +107,7 @@ const AuthContextProvider = (props) => {
                                 setAuthValues({
                                     ...authValues,
                                     isLoggedIn: false,
-                                    errors: data.data.errors
+                                    errors: data.data
                                 })
                             } else {
                                 setAuthValues({
@@ -166,7 +166,8 @@ const AuthContextProvider = (props) => {
                 logout,
                 login,
                 register,
-                getAuthRoute
+                getAuthRoute,
+                setAuthValues
             }}>
                 {props.children}
             </Provider>
@@ -189,7 +190,8 @@ const withAuth = (WrappedComponent) => {
                         login,
                         logout,
                         register,
-                        getAuthRoute
+                        getAuthRoute,
+                        setAuthValues
                     } = value;
                     return (<WrappedComponent
                         {...props}
@@ -201,6 +203,7 @@ const withAuth = (WrappedComponent) => {
                         isLoading={isLoading}
                         errors={errors}
                         getAuthRoute={getAuthRoute}
+                        setAuthValues={setAuthValues}
                     />)
                 }}
             </Consumer>
