@@ -37,8 +37,8 @@ Validator.registerAsync("incorrectEmail",function async(value, attribute, req, p
         }
         passes();
       })
-      .catch((err) => {
-        console.log("ERR", err);
+      .catch((error) => {
+        console.log("error", errr);
       });
   }
 );

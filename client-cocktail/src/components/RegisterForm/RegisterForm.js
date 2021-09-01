@@ -1,17 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { map, isEmpty } from "lodash";
+import React, { useState } from "react";
+import ErrorMessages from "../ErrorMessages";
 
 const RegisterForm = ({ register, errors }) => {
-  const [values, setValues] = useState({ name: "", email: "", password: "" });
+  const [values, setValues] = useState({ name: "", email: "", dateOfBirth: "", password: "" });
   const [error, setError] = useState({});
-
-  useEffect(() => {
-    setError(errors);
-  }, [errors]);
-
-  useEffect(() => {
-    setError({});
-  }, []);
 
   const handleChange = (event) => {
     setError({});
@@ -21,13 +13,12 @@ const RegisterForm = ({ register, errors }) => {
 
   const handleRegisterForm = (event) => {
     event.preventDefault();
-    const { name, email, password } = values;
-    register(name, email, password);
+    const { name, email, dateOfBirth, password } = values;
+    register(name, email, dateOfBirth, password);
   };
 
-  console.log(error);
-
   return (
+    <>
     <form onSubmit={handleRegisterForm}>
       <input
         type="text"
@@ -46,6 +37,14 @@ const RegisterForm = ({ register, errors }) => {
         required
       />
       <input
+        type="date"
+        value={values.dateOfBirth}
+        name="dateOfBirth"
+        placeholder="Enter your date of birth"
+        onChange={handleChange}
+        required
+      />
+      <input
         type="password"
         value={values.password}
         name="password"
@@ -54,13 +53,9 @@ const RegisterForm = ({ register, errors }) => {
         required
       />
       <button>Register</button>
-      <p>
-        {!isEmpty(error) &&
-          map(Object.entries(error), ([value, keys]) => {
-            return keys[0];
-          })}
-      </p>
     </form>
+    <ErrorMessages error={error} errors={errors} setError={setError}/>
+    </>
   );
 };
 

@@ -1,17 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { map, isEmpty } from "lodash";
+import React, { useState } from "react";
+import ErrorMessages from "../ErrorMessages";
 
 export const LoginForm = ({ login, errors }) => {
   const [values, setValues] = useState({ email: "", password: "" });
   const [error, setError] = useState({});
-
-  useEffect(() => {
-    setError(errors);
-  }, [errors]);
-
-  useEffect(() => {
-    setError({});
-  }, []);
 
   const handleChange = (event) => {
     setError({});
@@ -25,7 +17,7 @@ export const LoginForm = ({ login, errors }) => {
     login(email, password);
   };
 
-  return (
+    return (
     <form onSubmit={handleLoginFormSubmit}>
       <input
         type="text"
@@ -42,12 +34,7 @@ export const LoginForm = ({ login, errors }) => {
         onChange={handleChange}
       />
       <button>Login</button>
-      <p>
-        {!isEmpty(error) &&
-          map(Object.entries(error), ([value, keys]) => {
-            return keys[0];
-          })}
-      </p>
+     <ErrorMessages error={error} errors={errors} setError={setError}/>
     </form>
   );
 };

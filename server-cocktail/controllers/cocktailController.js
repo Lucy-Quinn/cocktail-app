@@ -14,7 +14,6 @@ module.exports.cocktail_upload_image = (req, res, next) => {
 module.exports.cocktail_get = async (req, res) => {
     try {
         const foundCocktails = await Cocktail.find().sort({ name: 1 });
-        // console.log(foundCocktails)
         res.status(200).json(foundCocktails)
     } catch (error) {
         res.status(400).json(error)

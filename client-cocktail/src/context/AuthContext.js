@@ -46,7 +46,7 @@ const AuthContextProvider = (props) => {
         }
     };
 
-    const register = (name, email, password) => {
+    const register = (name, email, dateOfBirth, password) => {
         try {
             fetch(`${process.env.REACT_APP_API_URL}/auth/register`, {
                 method: "POST",
@@ -56,6 +56,7 @@ const AuthContextProvider = (props) => {
                 body: JSON.stringify({
                     name,
                     email,
+                    dateOfBirth,
                     password
                 })
             })

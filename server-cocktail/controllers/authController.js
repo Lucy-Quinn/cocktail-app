@@ -8,11 +8,11 @@ const createToken = (id) => {
 };
 
 module.exports.register_post = async (req, res) => {
-    const { name, email, password } = req.body;
+    const { name, email, dateOfBirth, password } = req.body;
     try {
         const salt = await bcrypt.genSalt();
         let hashedPassword = await bcrypt.hash(password, salt);
-        const user = await User.create({ name, email, password: hashedPassword });
+        const user = await User.create({ name, email, dateOfBirth, password: hashedPassword });
         const token = createToken(user._id);
         res.cookie('jwt', token, { httpOnly: false, maxAge: maxAge * 1000, sameSite: 'none', secure: true });
         res.status(201).json({ user });
