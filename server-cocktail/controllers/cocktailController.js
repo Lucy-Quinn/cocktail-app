@@ -3,9 +3,18 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
+module.exports.cocktail_upload_image = (req, res, next) => {
+    if (!req.file) {
+        next(new Error("No file uploaded!"));
+        return;
+    }
+    res.json({ secure_url: req.file.path });
+  }
+
 module.exports.cocktail_get = async (req, res) => {
     try {
         const foundCocktails = await Cocktail.find().sort({ name: 1 });
+        // console.log(foundCocktails)
         res.status(200).json(foundCocktails)
     } catch (error) {
         res.status(400).json(error)
@@ -13,11 +22,11 @@ module.exports.cocktail_get = async (req, res) => {
 };
 
 module.exports.cocktail_post = async (req, res) => {
-    const { name, ingredients } = req.body;
+    const { name, ingredients, image } = req.body;
     const token = req.cookies.jwt;
     const currentUserId = await jwt.verify(token, process.env.SECRET_KEY, async (error, decodedToken) => { return decodedToken.id });
     try {
-        const createdCocktail = await Cocktail.create({ name, ingredients, cocktailCreator: currentUserId });
+        const createdCocktail = await Cocktail.create({ name, ingredients, image, cocktailCreator: currentUserId });
         const user = await User.findByIdAndUpdate(
             currentUserId,
             { $push: { myCocktails: createdCocktail } }, { new: true }

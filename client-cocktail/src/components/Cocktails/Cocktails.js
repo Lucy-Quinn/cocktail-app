@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
-import { Link } from 'react-router-dom';
+import Cocktail from './Cocktail';
+import {map, filter} from 'lodash';
 
 const Cocktails = ({ user }) => {
 
@@ -16,7 +17,7 @@ const Cocktails = ({ user }) => {
 
     const getCocktailData = async () => {
         const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/cocktails`, { withCredentials: true });
-        const foundCocktails = res.data.filter(cocktail => cocktail.cocktailCreator === userId)
+        const foundCocktails = filter(res.data, cocktail => cocktail.cocktailCreator === userId)
         setCocktails(foundCocktails)
     };
 
@@ -26,12 +27,9 @@ const Cocktails = ({ user }) => {
                 'loading cocktails'
                 :
                 cocktails.length ?
-                    cocktails.map(cocktail => {
+                    map(cocktails, cocktail => {
                         return (
-                            <Link to={`/cocktails/${cocktail._id}`} key={cocktail._id}>
-                                <h2>{cocktail.name}</h2>
-                                <p>{cocktail.ingredients.map(ingredient => ingredient + ' ')}</p>
-                            </Link>
+                            <Cocktail cocktail={cocktail} key={cocktail._id}/>
                         )
                     })
                     :

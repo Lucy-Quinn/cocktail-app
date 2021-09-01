@@ -9,17 +9,22 @@ const CreateFormWrapper = styled.form`
     margin: 10px 0;
     padding: 8px;
   }
- button {
+`;
+
+const CreateCocktailButton = styled.button`
     margin-top: 20px;
+    padding: 6px;
     background: crimson;
     color: white;
-    padding: 6px;
+    &:disabled{
+      opacity: 0.3;
+    }
     border: 0;
     font-size: 1.2em;
     cursor: pointer;
-  }
 `;
 
 export {
-    CreateFormWrapper
+    CreateFormWrapper,
+    CreateCocktailButton
 }

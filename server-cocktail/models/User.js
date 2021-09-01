@@ -19,6 +19,11 @@ const userSchema = new Schema({
         required: true,
         minlength: 6,
     },
+    dateOfBirth: {
+        type: Date,
+        required: true,
+        trim: true,
+    },
     myCocktails: [{ type: Schema.Types.ObjectId, ref: "cocktail" }]
 },
     {

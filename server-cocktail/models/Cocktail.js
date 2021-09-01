@@ -9,6 +9,9 @@ const cocktailSchema = new Schema({
         maxlength: 150
     },
     ingredients: [String],
+    image: {
+        type: String,
+    },
     cocktailCreator: { type: Schema.Types.ObjectId, ref: "user" }
 },
     {

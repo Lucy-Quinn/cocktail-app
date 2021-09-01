@@ -29,7 +29,9 @@ app.use(function (req, res, next) {
 app.use(express.static('public'));
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ origin: true, credentials: true }));
+app.use(cors({    origin: [
+    'http://localhost:3000',
+  ], credentials: true }));
 
 // ROUTER MIDDLEWARE
 app.use('/api/cocktails', cocktailRouter);

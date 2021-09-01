@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {map} from 'lodash';
 
 import EditCocktailForm from '../EditCocktailForm';
 
@@ -17,7 +18,7 @@ const EditCocktail = ({ cocktail, getCocktailData }) => {
                 :
                 <div>
                     <h1>{cocktail.name}</h1>
-                    <p>{cocktail.ingredients.map(ingredient => ingredient + ' ')}</p>
+                    <p>{map(cocktail.ingredients, ingredient => ingredient + ' ')}</p>
                     <button onClick={handleEditCocktailButton}>Edit Cocktail</button>
                 </div>
             }
