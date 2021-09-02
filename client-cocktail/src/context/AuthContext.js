@@ -116,7 +116,7 @@ const AuthContextProvider = (props) => {
                                     isLoggedIn: true,
                                     user: data
                                 });
-                                history.push('/');
+                                history.push('/cocktails/cocktail-inspiration');
                             }
                         })
                 })

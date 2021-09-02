@@ -10,7 +10,7 @@ const Navbar = ({ user, isLoggedIn, logout }) => {
         <NavbarWrapper>
             {isLoggedIn ?
                 <>
-                    <h1><Link to="/cocktails">Cocktail Mania</Link></h1>
+                    <h1><Link to="/cocktails/cocktail-inspiration">Cocktail Mania</Link></h1>
                     <h2>Welcome {user && user.name}</h2>
                 </>
                 :

@@ -11,7 +11,8 @@ const NavbarLinks = ({ isLoggedIn, user, logout }) => {
         <ul>
             {isLoggedIn ?
                 <>
-                    <li><Link to="/cocktails">Your cocktails</Link></li>
+                    <li><Link to="/cocktails/cocktail-inspiration">Inspiration</Link></li>
+                    <li><Link to="/cocktails/your-cocktails">Your cocktails</Link></li>
                     <li><Link to="/cocktails/create-cocktail">Create a cocktail</Link></li>
                     <li><Link to={`/profile/${profileId && profileId}`}>Your profile</Link></li>
                     <Logout logout={logout} />

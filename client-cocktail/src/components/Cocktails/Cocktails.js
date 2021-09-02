@@ -16,7 +16,7 @@ const Cocktails = ({ user }) => {
     }, []);
 
     const getCocktailData = async () => {
-        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/cocktails`, { withCredentials: true });
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/cocktails/your-cocktails`, { withCredentials: true });
         const foundCocktails = filter(res.data, cocktail => cocktail.cocktailCreator === userId)
         setCocktails(foundCocktails)
     };
