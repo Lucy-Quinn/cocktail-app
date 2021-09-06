@@ -6,20 +6,9 @@ const PopularDrinksWrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 10px;
-`;
-
-const CocktailWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const CocktailImage = styled.img`
-    width: auto;
-    height: 200px;
+  opacity: ${({loadedCocktails, cocktailData}) => (loadedCocktails.length === cocktailData.length ? 1 : 0)};
 `;
 
 export {
   PopularDrinksWrapper, 
-  CocktailWrapper,
-  CocktailImage
 }

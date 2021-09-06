@@ -2,7 +2,7 @@ import React from 'react'
 import { DashboardWrapper } from './Dashboard.styled';
 import { Link } from 'react-router-dom';
 
-import Cocktails from '../../components/Cocktails';
+import MyCocktails from '../../components/MyCocktails';
 import { withAuth } from '../../context/AuthContext';
 
 const DashboardPage = ({ user }) => {
@@ -13,7 +13,7 @@ const DashboardPage = ({ user }) => {
             <button>
                 <Link to="/cocktails/create-cocktail">Create Cocktail</Link>
             </button>
-            <Cocktails user={user} />
+            <MyCocktails user={user} />
         </DashboardWrapper>
     );
 };

@@ -2,9 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { map } from "lodash";
 
-import {CocktailImage} from './Cocktail.styled';
+import {CocktailImage} from './MyCocktail.styled';
 
-const Cocktail = ({ cocktail }) => {
+const MyCocktail = ({ cocktail }) => {
   return (
     <div>
       <Link to={`/cocktails/${cocktail._id}`}>
@@ -16,4 +16,4 @@ const Cocktail = ({ cocktail }) => {
   );
 };
 
-export default Cocktail;
+export default MyCocktail;

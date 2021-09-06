@@ -39,6 +39,10 @@ const GlobalStyle = createGlobalStyle`
   p{
     font-size: 1.2rem;
   }
+  .cocktail-image{
+    width: auto;
+    height: 200px;
+  }
 `;
 
 export default GlobalStyle;

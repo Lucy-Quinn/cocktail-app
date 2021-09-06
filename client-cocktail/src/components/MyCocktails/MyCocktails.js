@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
-import Cocktail from './Cocktail';
+import MyCocktail from './MyCocktail';
 import {map, filter} from 'lodash';
 
-const Cocktails = ({ user }) => {
+const MyCocktails = ({ user }) => {
 
     const [cocktails, setCocktails] = useState('')
     const { _id: userId } = user || {};
@@ -29,7 +29,7 @@ const Cocktails = ({ user }) => {
                 cocktails.length ?
                     map(cocktails, cocktail => {
                         return (
-                            <Cocktail cocktail={cocktail} key={cocktail._id}/>
+                            <MyCocktail cocktail={cocktail} key={cocktail._id}/>
                         )
                     })
                     :
@@ -39,4 +39,4 @@ const Cocktails = ({ user }) => {
     )
 };
 
-export default Cocktails;
+export default MyCocktails;

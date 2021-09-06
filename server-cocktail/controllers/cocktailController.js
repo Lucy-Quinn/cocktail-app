@@ -169,3 +169,13 @@ module.exports.popular_cocktails_get = (req, res) => {
     .catch((error) => console.log(error));
 };
 
+
+module.exports.cocktails_by_name_post = (req, res) => {
+  const cocktailName = req.body.nameValue;
+  axios
+  .get(`http://thecocktaildb.com/api/json/v1/1/search.php?s=${cocktailName}`,)
+  .then(response => {
+    res.status(200).json(response.data.drinks);
+  })
+  .catch(error => console.log('errorrRRRRRrr'))
+}
