@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { Switch } from 'react-router-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 
@@ -12,8 +12,8 @@ import IndividualCocktailPage from './pages/IndividualCocktailPage';
 import CocktailInspirationPage from './pages/CocktailInspirationPage';
 import ProfilePage from './pages/ProfilePage';
 import GlobalStyle from './components/GlobalStyle';
-import AnonRoute from "./routes/AnonRoute";
-import PrivateRoute from "./routes/PrivateRoute";
+import AnonRoute from './routes/AnonRoute';
+import PrivateRoute from './routes/PrivateRoute';
 import { AuthContextProvider } from './context/AuthContext';
 
 function App() {
@@ -26,15 +26,35 @@ function App() {
           <AnonRoute exact path="/" component={HomePage} />
           <AnonRoute exact path="/login" component={LoginPage} />
           <AnonRoute exact path="/register" component={RegisterPage} />
-          <PrivateRoute exact path="/cocktails/cocktail-inspiration" component={CocktailInspirationPage} />
-          <PrivateRoute exact path="/cocktails/your-cocktails" component={DashboardPage} />
-          <PrivateRoute exact path="/cocktails/create-cocktail" component={CreateCocktailPage} />
-          <PrivateRoute exact path="/cocktails/:cocktailId" component={IndividualCocktailPage} />
-          <PrivateRoute exact path="/profile/:profileId" component={ProfilePage} />
+          <PrivateRoute
+            exact
+            path="/cocktails/cocktail-inspiration"
+            component={CocktailInspirationPage}
+          />
+          <PrivateRoute
+            exact
+            path="/cocktails/your-cocktails"
+            component={DashboardPage}
+          />
+          <PrivateRoute
+            exact
+            path="/cocktails/create-cocktail"
+            component={CreateCocktailPage}
+          />
+          <PrivateRoute
+            exact
+            path="/cocktails/:cocktailId"
+            component={IndividualCocktailPage}
+          />
+          <PrivateRoute
+            exact
+            path="/profile/:profileId"
+            component={ProfilePage}
+          />
         </Switch>
       </AuthContextProvider>
     </Router>
   );
-};
+}
 
 export default App;

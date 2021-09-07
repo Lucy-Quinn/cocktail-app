@@ -5,7 +5,7 @@ const NavbarWrapper = styled.nav`
   justify-content: space-between;
   margin-bottom: 20px;
   align-items: baseline;
-  &:first-child{
+  &:first-child {
     padding: 0 0 0 16px;
   }
   ul {
@@ -25,6 +25,4 @@ const NavbarWrapper = styled.nav`
   }
 `;
 
-export {
-  NavbarWrapper
-}
+export { NavbarWrapper };

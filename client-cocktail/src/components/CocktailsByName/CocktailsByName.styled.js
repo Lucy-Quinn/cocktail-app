@@ -6,13 +6,10 @@ const CocktailsByNameWrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 10px;
-  opacity: ${({loadedCocktails, cocktailData}) => (loadedCocktails.length === cocktailData?.length || cocktailData === null ? 1 : 0)};
-  p{
-  opacity: 1;
-  }
+  opacity: ${({ loadedCocktails, cocktailData }) =>
+    loadedCocktails.length === cocktailData?.length || cocktailData === null
+      ? 1
+      : 0};
 `;
 
-
-export {
-    CocktailsByNameWrapper,
-}
+export { CocktailsByNameWrapper };

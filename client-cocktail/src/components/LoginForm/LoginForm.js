@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import ErrorMessages from "../ErrorMessages";
+import React, { useState } from 'react';
+import ErrorMessages from '../ErrorMessages';
 
 export const LoginForm = ({ login, errors }) => {
-  const [values, setValues] = useState({ email: "", password: "" });
+  const [values, setValues] = useState({ email: '', password: '' });
   const [error, setError] = useState({});
 
   const handleChange = (event) => {
@@ -17,7 +17,7 @@ export const LoginForm = ({ login, errors }) => {
     login(email, password);
   };
 
-    return (
+  return (
     <form onSubmit={handleLoginFormSubmit}>
       <input
         type="text"
@@ -34,7 +34,7 @@ export const LoginForm = ({ login, errors }) => {
         onChange={handleChange}
       />
       <button>Login</button>
-     <ErrorMessages error={error} errors={errors} setError={setError}/>
+      <ErrorMessages error={error} errors={errors} setError={setError} />
     </form>
   );
 };

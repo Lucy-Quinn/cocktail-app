@@ -1,13 +1,13 @@
-const Validator = require("validatorjs");
-const User = require("../models/User");
-const _ = require("lodash");
+const Validator = require('validatorjs');
+const User = require('../models/User');
+const _ = require('lodash');
 
-Validator.registerAsync("exist", function (value, attribute, req, passes) {
+Validator.registerAsync('exist', function (value, attribute, req, passes) {
   if (value === null) {
-    passes(false, "Email required");
+    passes(false, 'Email required');
   }
 
-  if (!attribute) throw new Error("Specify Requirements");
+  if (!attribute) throw new Error('Specify Requirements');
 
   let msg = `This ${req} address has already been taken`;
 
@@ -20,12 +20,14 @@ Validator.registerAsync("exist", function (value, attribute, req, passes) {
   });
 });
 
-Validator.registerAsync("incorrectEmail",function async(value, attribute, req, passes) {
+Validator.registerAsync(
+  'incorrectEmail',
+  function async(value, attribute, req, passes) {
     if (value === null) {
-      passes(false, "Email required");
+      passes(false, 'Email required');
     }
 
-    if (!attribute) throw new Error("Specify Requirements");
+    if (!attribute) throw new Error('Specify Requirements');
 
     let msg = `Incorrect email or password`;
 
@@ -38,9 +40,9 @@ Validator.registerAsync("incorrectEmail",function async(value, attribute, req, p
         passes();
       })
       .catch((error) => {
-        console.log("error", errr);
+        console.log('error', errr);
       });
-  }
+  },
 );
 
 const validator = (body, rules, customMessages, callback, passes, fails) => {
@@ -48,10 +50,10 @@ const validator = (body, rules, customMessages, callback, passes, fails) => {
   validation.passes(() => callback(null, true));
   validation.fails(() => callback(validation.errors.errors, false));
   function passes() {
-    console.log("Validation passed!");
+    console.log('Validation passed!');
   }
   function fails() {
-    console.log("Validation failed!");
+    console.log('Validation failed!');
   }
   validation.checkAsync(passes, fails);
 };

@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import { CocktailWrapper, CocktailImage } from './Cocktail.styled';
 
 const Cocktail = ({ cocktail, onCocktailLoad }) => {
-
   function onLoad() {
-    onCocktailLoad({id: cocktail.idDrink})
+    onCocktailLoad({ id: cocktail.idDrink });
   }
-  
+
   return (
     <CocktailWrapper>
       <CocktailImage

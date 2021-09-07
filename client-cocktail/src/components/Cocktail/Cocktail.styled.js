@@ -5,11 +5,6 @@ const CocktailWrapper = styled.div`
   flex-direction: column;
 `;
 
-const CocktailImage = styled.img`
- 
-`;
+const CocktailImage = styled.img``;
 
-export {
-  CocktailWrapper,
-  CocktailImage
-}
+export { CocktailWrapper, CocktailImage };

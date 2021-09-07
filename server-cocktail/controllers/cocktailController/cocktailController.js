@@ -1,12 +1,13 @@
-const Cocktail = require("../models/Cocktail");
-const User = require("../models/User");
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
-const axios = require("axios");
+const Cocktail = require('../../models/Cocktail');
+const User = require('../../models/User');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
+const axios = require('axios');
+const { QUERY_DATA, url } = require('./constants');
 
 module.exports.cocktail_upload_image = (req, res, next) => {
   if (!req.file) {
-    next(new Error("No file uploaded!"));
+    next(new Error('No file uploaded!'));
     return;
   }
   res.json({ secure_url: req.file.path });
@@ -29,7 +30,7 @@ module.exports.cocktail_post = async (req, res) => {
     process.env.SECRET_KEY,
     async (error, decodedToken) => {
       return decodedToken.id;
-    }
+    },
   );
   try {
     const createdCocktail = await Cocktail.create({
@@ -41,7 +42,7 @@ module.exports.cocktail_post = async (req, res) => {
     const user = await User.findByIdAndUpdate(
       currentUserId,
       { $push: { myCocktails: createdCocktail } },
-      { new: true }
+      { new: true },
     );
     res
       .status(201)
@@ -71,7 +72,7 @@ module.exports.cocktail_put = async (req, res) => {
         name,
         ingredients,
       },
-      { new: true }
+      { new: true },
     );
     res.status(200).json(updatedCocktail);
   } catch (error) {
@@ -87,13 +88,13 @@ module.exports.cocktail_delete = async (req, res) => {
     process.env.SECRET_KEY,
     async (error, decodedToken) => {
       return decodedToken.id;
-    }
+    },
   );
   try {
     await User.findByIdAndUpdate(
       currentUserId,
       { $pull: { myCocktails: cocktailId } },
-      { new: true }
+      { new: true },
     );
     const deletedCocktail = await Cocktail.findByIdAndDelete(cocktailId);
     res.status(200).send(`Post ${deletedCocktail} was removed successfully.`);
@@ -103,54 +104,12 @@ module.exports.cocktail_delete = async (req, res) => {
 };
 
 module.exports.popular_cocktails_get = (req, res) => {
-  const url= "http://thecocktaildb.com/api/json/v1/1/search.php";
-  const QUERY_DATA = [
-    (query1 = {
-      params: {
-        s: "margarita",
-      },
-    }),
-    (query2 = {
-      params: {
-        s: "mojito",
-      },
-    }),
-    (query3 = {
-      params: {
-        s: "martini",
-      },
-    }),
-    (query4 = {
-      params: {
-        s: "negroni",
-      },
-    }),
-    (query5 = {
-      params: {
-        s: "daiquiri",
-      },
-    }),
-    (query6 = {
-      params: {
-        s: "old fashioned",
-      },
-    }),
-    (query7 = {
-      params: {
-        s: "long island tea",
-      },
-    }),
-    (query8 = {
-      params: {
-        s: "whiskey sour",
-      },
-    }),
-  ];
-
   axios
-    .all(QUERY_DATA.map((query) => {
-      return axios.get(url, query)
-    }))
+    .all(
+      QUERY_DATA.map((query) => {
+        return axios.get(url, query);
+      }),
+    )
     .then(
       axios.spread((...responses) => {
         const cocktailData = [
@@ -164,18 +123,17 @@ module.exports.popular_cocktails_get = (req, res) => {
           responses[7].data.drinks[0],
         ];
         res.status(200).json(cocktailData);
-      })
+      }),
     )
     .catch((error) => console.log(error));
 };
 
-
 module.exports.cocktails_by_name_post = (req, res) => {
   const cocktailName = req.body.nameValue;
   axios
-  .get(`http://thecocktaildb.com/api/json/v1/1/search.php?s=${cocktailName}`,)
-  .then(response => {
-    res.status(200).json(response.data.drinks);
-  })
-  .catch(error => console.log('errorrRRRRRrr'))
-}
+    .get(`http://thecocktaildb.com/api/json/v1/1/search.php?s=${cocktailName}`)
+    .then((response) => {
+      res.status(200).json(response.data.drinks);
+    })
+    .catch((error) => console.log('errorrRRRRRrr'));
+};

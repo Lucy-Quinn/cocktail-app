@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { map } from "lodash";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { map } from 'lodash';
 
 import Cocktail from '../Cocktail';
-import {
-  PopularDrinksWrapper,
-} from "./PopularCocktails.styled";
+import { PopularDrinksWrapper } from './PopularCocktails.styled';
 
 const PopularCocktails = () => {
   const [cocktailData, setCocktailData] = useState([]);
@@ -13,9 +11,7 @@ const PopularCocktails = () => {
   const [loadedCocktails, setLoadedCocktails] = useState([]);
 
   const onCocktailLoad = (cocktail) => {
-    setLoadedCocktails(prevState => 
-       [...prevState,cocktail]
-    )
+    setLoadedCocktails((prevState) => [...prevState, cocktail]);
   };
 
   useEffect(() => {
@@ -25,7 +21,7 @@ const PopularCocktails = () => {
   const getPopularCocktails = async () => {
     const response = await axios.get(
       `${process.env.REACT_APP_API_URL}/api/cocktails/popular-cocktails`,
-      { withCredentials: true }
+      { withCredentials: true },
     );
     setCocktailData(response.data);
     setIsReady(true);
@@ -34,12 +30,20 @@ const PopularCocktails = () => {
   return (
     <>
       <h2>Popular Cocktails</h2>
-      <PopularDrinksWrapper loadedCocktails={loadedCocktails} cocktailData={cocktailData}>
+      <PopularDrinksWrapper
+        loadedCocktails={loadedCocktails}
+        cocktailData={cocktailData}
+      >
         {isReady ? (
           map(cocktailData, (cocktail) => {
             return (
-            cocktail !== null &&
-              <Cocktail  key={cocktail.idDrink} cocktail={cocktail} onCocktailLoad={onCocktailLoad}/>
+              cocktail !== null && (
+                <Cocktail
+                  key={cocktail.idDrink}
+                  cocktail={cocktail}
+                  onCocktailLoad={onCocktailLoad}
+                />
+              )
             );
           })
         ) : (

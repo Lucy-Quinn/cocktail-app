@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { map } from 'lodash';
 
@@ -13,12 +13,16 @@ const CocktailsByName = () => {
   const [loadedCocktails, setLoadedCocktails] = useState([]);
   const [cocktailName, setCocktailName] = useState('');
 
+  useEffect(() => {
+    handleCocktailByName();
+  }, [nameValue]);
+
   const onCocktailLoad = (cocktail) => {
     setLoadedCocktails((prevState) => [...prevState, cocktail]);
   };
 
-  const handleCocktailByNameSubmit = async (event) => {
-    event.preventDefault();
+  const handleCocktailByName = async () => {
+    setCocktailData([]);
     setLoadedCocktails([]);
     const response = await axios.post(
       `${process.env.REACT_APP_API_URL}/api/cocktails/cocktails-by-name`,
@@ -31,22 +35,18 @@ const CocktailsByName = () => {
 
   return (
     <>
-      <SearchNameForm
-        handleCocktailByNameSubmit={handleCocktailByNameSubmit}
-        nameValue={nameValue}
-        setNameValue={setNameValue}
-      />
+      <SearchNameForm nameValue={nameValue} setNameValue={setNameValue} />
       <CocktailsByNameWrapper
         loadedCocktails={loadedCocktails}
         cocktailData={cocktailData}
       >
-        {!cocktailData && (cocktailName.length === nameValue.length) ? (
+        {!cocktailData && cocktailName.length === nameValue.length ? (
           <p>
             There are no cocktails by the name {cocktailName}. Please search
             again!
           </p>
-        ) :
-        map(cocktailData, (cocktail) => {
+        ) : (
+          map(cocktailData, (cocktail) => {
             return (
               <Cocktail
                 key={cocktail.idDrink}
@@ -55,9 +55,8 @@ const CocktailsByName = () => {
               />
             );
           })
-        
-        }
-        
+        )}
+        ;
       </CocktailsByNameWrapper>
     </>
   );

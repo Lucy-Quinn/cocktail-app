@@ -4,12 +4,11 @@ import IndividualCocktail from '../../components/IndividualCocktail';
 import { withAuth } from '../../context/AuthContext';
 
 const IndividualCocktailPage = () => {
-
-    return (
-        <>
-            <IndividualCocktail />
-        </>
-    );
+  return (
+    <>
+      <IndividualCocktail />
+    </>
+  );
 };
 
 export default withAuth(IndividualCocktailPage);

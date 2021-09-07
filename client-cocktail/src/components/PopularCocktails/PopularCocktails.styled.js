@@ -6,9 +6,8 @@ const PopularDrinksWrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 10px;
-  opacity: ${({loadedCocktails, cocktailData}) => (loadedCocktails.length === cocktailData.length ? 1 : 0)};
+  opacity: ${({ loadedCocktails, cocktailData }) =>
+    loadedCocktails.length === cocktailData.length ? 1 : 0};
 `;
 
-export {
-  PopularDrinksWrapper, 
-}
+export { PopularDrinksWrapper };

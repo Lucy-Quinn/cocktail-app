@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import {
   CreateFormWrapper,
   CreateCocktailButton,
-} from "./CreateCocktailForm.styled";
-import UploadImage from "./UploadImage";
+} from './CreateCocktailForm.styled';
+import UploadImage from './UploadImage';
 
 const CreateCocktailForm = ({ getAuthRoute }) => {
-  const [values, setValues] = useState({ name: "", ingredients: "" });
+  const [values, setValues] = useState({ name: '', ingredients: '' });
   const [uploadedImage, setUploadedImage] = useState({});
   const [isReady, setIsReady] = useState(false);
 
@@ -25,13 +25,13 @@ const CreateCocktailForm = ({ getAuthRoute }) => {
     const { image } = uploadedImage;
 
     fetch(`${process.env.REACT_APP_API_URL}/api/cocktails/create-cocktail`, {
-      method: "POST",
+      method: 'POST',
       withCredentials: true,
-      credentials: "include",
+      credentials: 'include',
       headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
       },
       body: JSON.stringify({
         name,
@@ -41,14 +41,14 @@ const CreateCocktailForm = ({ getAuthRoute }) => {
     })
       .then(() => {
         getAuthRoute();
-        history.push("/cocktails");
+        history.push('/cocktails');
       })
       .catch((error) => {
         if (error.request) {
-          console.log("REQUEST", error.request);
+          console.log('REQUEST', error.request);
         }
         if (error.response) {
-          console.log("RESPONSE", error.response);
+          console.log('RESPONSE', error.response);
         }
       });
   };
