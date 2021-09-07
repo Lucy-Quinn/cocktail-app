@@ -29,7 +29,6 @@ const PopularCocktails = () => {
 
   return (
     <>
-      <h2>Popular Cocktails</h2>
       <PopularDrinksWrapper
         loadedCocktails={loadedCocktails}
         cocktailData={cocktailData}

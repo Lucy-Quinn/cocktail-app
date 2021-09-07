@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { map } from 'lodash';
 
 import SearchNameForm from './SearchNameForm';
-
-import { CocktailsByNameWrapper } from './CocktailsByName.styled';
-import Cocktail from '../Cocktail/Cocktail';
+import SearchNameFormResults from './SearchNameFormResults';
 
 const CocktailsByName = () => {
   const [cocktailData, setCocktailData] = useState([]);
@@ -16,10 +13,6 @@ const CocktailsByName = () => {
   useEffect(() => {
     handleCocktailByName();
   }, [nameValue]);
-
-  const onCocktailLoad = (cocktail) => {
-    setLoadedCocktails((prevState) => [...prevState, cocktail]);
-  };
 
   const handleCocktailByName = async () => {
     setCocktailData([]);
@@ -36,28 +29,13 @@ const CocktailsByName = () => {
   return (
     <>
       <SearchNameForm nameValue={nameValue} setNameValue={setNameValue} />
-      <CocktailsByNameWrapper
+      <SearchNameFormResults
         loadedCocktails={loadedCocktails}
         cocktailData={cocktailData}
-      >
-        {!cocktailData && cocktailName.length === nameValue.length ? (
-          <p>
-            There are no cocktails by the name {cocktailName}. Please search
-            again!
-          </p>
-        ) : (
-          map(cocktailData, (cocktail) => {
-            return (
-              <Cocktail
-                key={cocktail.idDrink}
-                cocktail={cocktail}
-                onCocktailLoad={onCocktailLoad}
-              />
-            );
-          })
-        )}
-        ;
-      </CocktailsByNameWrapper>
+        nameValue={nameValue}
+        cocktailName={cocktailName}
+        setLoadedCocktails={setLoadedCocktails}
+      />
     </>
   );
 };
